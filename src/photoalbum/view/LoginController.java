@@ -2,6 +2,16 @@ package photoalbum.view;
 
 import javafx.fxml.*;
 import javafx.scene.control.*;
+import photoalbum.app.StateManager;
+import photoalbum.models.*;
+
+import java.io.Serializable;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import java.util.*;
 
 public class LoginController {
 
@@ -18,12 +28,18 @@ public class LoginController {
 	
 	private void Login()
 	{
+		StateManager stateManager = StateManager.getInstance();
 		
+		List<User> users = stateManager.getUsers();
+
+
 	}
 	
 	private void Exit()
 	{
 		System.exit(0);
 	}
+	
+	
 
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane layoutX="30.0" layoutY="-84.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="129.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="354.0" minHeight="10.0" prefHeight="327.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="80.0" minHeight="8.0" prefHeight="36.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Users">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn prefWidth="516.0" text="Username" />
+                <TableColumn minWidth="0.0" prefWidth="83.0" text="Admin" />
+              </columns>
+            </TableView>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+              <items>
+                <Button mnemonicParsing="false" text="Create User" />
+                  <Button mnemonicParsing="false" text="Delete User" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Exit" />
+              </items>
+            </ToolBar>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

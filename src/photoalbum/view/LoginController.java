@@ -44,29 +44,45 @@ public class LoginController
 	{
 		StateManager stateManager = StateManager.getInstance();
 		
-		for (User user : stateManager.getUsers())
-		{
-			System.out.println(user.getUsername() + user.getPassword());
-		}
-		
 		if (stateManager.validateUser(txtUsername.getText(), txtPassword.getText()))
 		{
-			
-			try 
+			if (txtUsername.getText().equals("admin"))
 			{
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("/photoalbum/view/HomeScreen.fxml"));
-				AnchorPane root = (AnchorPane)loader.load();
-				
-				HomeScreenController controller = loader.getController();
-				controller.start();
-				
-				Scene scene = new Scene(root,400,600);
-				stateManager.getPrimaryStage().setScene(scene);
-				stateManager.getPrimaryStage().show();
-			} catch(Exception e) 
+				try 
+				{
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("/photoalbum/view/UserView.fxml"));
+					AnchorPane root = (AnchorPane)loader.load();
+					
+					UserViewController controller = loader.getController();
+					controller.start();
+					
+					Scene scene = new Scene(root,600,600);
+					stateManager.getPrimaryStage().setScene(scene);
+					stateManager.getPrimaryStage().show();
+				} catch(Exception e) 
+				{
+					e.printStackTrace();
+				}
+			}
+			else
 			{
-				e.printStackTrace();
+				try 
+				{
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("/photoalbum/view/HomeScreen.fxml"));
+					AnchorPane root = (AnchorPane)loader.load();
+					
+					HomeScreenController controller = loader.getController();
+					controller.start();
+					
+					Scene scene = new Scene(root,400,600);
+					stateManager.getPrimaryStage().setScene(scene);
+					stateManager.getPrimaryStage().show();
+				} catch(Exception e) 
+				{
+					e.printStackTrace();
+				}	
 			}
 		}
 		else
@@ -81,8 +97,7 @@ public class LoginController
 	 */
 	private void Exit()
 	{
-		StateManager.getInstance().addUser(new Admin("admin", "admin"));
-        StateManager.getInstance().save();
+		System.exit(0);
 	}
 	
 	

@@ -2,6 +2,9 @@ package photoalbum.models;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javafx.beans.property.SimpleStringProperty;
+
 import java.util.ArrayList;
 
 /**
@@ -12,14 +15,20 @@ import java.util.ArrayList;
 
 public class User implements Serializable
 {	
+	private static final long serialVersionUID = 6306381479040511532L;
+
 	/**
 	 * The name of this User object
 	 */
-	private String username;
+	private transient SimpleStringProperty usernameProp;
 	
 	/**
 	 * The password associated with this User object
 	 */
+	private transient SimpleStringProperty passwordProp;
+	
+	private String username;
+	
 	private String password;
 	
 	/**
@@ -34,6 +43,8 @@ public class User implements Serializable
 	 */
 	public User(String username, String password)
 	{
+		this.usernameProp = new SimpleStringProperty(username);
+		this.passwordProp = new SimpleStringProperty(password);
 		this.username = username;
 		this.password = password;
 		this.albumList = new ArrayList<Album>();
@@ -57,12 +68,23 @@ public class User implements Serializable
 		return this.password;
 	}
 	
+	public SimpleStringProperty getUsernameProp()
+	{
+		return this.usernameProp;
+	}
+	
+	public SimpleStringProperty getPasswordProp()
+	{
+		return this.passwordProp;
+	}
+	
 	/**
 	 * Sets the name of this User object
 	 * @param username The new desired name for this object
 	 */
 	public void setUsername(String username)
 	{
+		this.usernameProp = new SimpleStringProperty(username);
 		this.username = username;
 	}
 	
@@ -72,6 +94,7 @@ public class User implements Serializable
 	 */
 	public void setPassword(String password)
 	{
+		this.passwordProp = new SimpleStringProperty(password);
 		this.password = password;
 	}
 	
@@ -82,6 +105,12 @@ public class User implements Serializable
 	public void addAlbum(Album album)
 	{
 		albumList.add(album);
+	}
+	
+	public void setProps()
+	{
+		this.usernameProp = new SimpleStringProperty(username);
+		this.passwordProp = new SimpleStringProperty(password);
 	}
 	
 }

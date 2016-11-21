@@ -76,6 +76,12 @@ public class StateManager implements Serializable
             {
                 ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(String.format("%s/%s", storeDir, storeFile)));
                 instance = (StateManager)inStream.readObject();
+                
+                for (User user : instance.getUsers())
+                {
+                	user.setProps();
+                }
+                
                 return instance;
             }
             catch (IOException | ClassNotFoundException e)
@@ -174,7 +180,7 @@ public class StateManager implements Serializable
 	 */
 	public void removeUser(User user)
 	{
-		userList.remove(user);
+		userList.clear();
 	}
 	
 	public boolean validateUser(String username, String password)

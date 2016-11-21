@@ -180,7 +180,7 @@ public class StateManager implements Serializable
 	 */
 	public void removeUser(User user)
 	{
-		userList.clear();
+		userList.remove(user);
 	}
 	
 	public boolean validateUser(String username, String password)
@@ -189,6 +189,18 @@ public class StateManager implements Serializable
 		{
 			if (username.equals(user.getUsername()) && password.equals(user.getPassword()))
 				return true;
+		}
+		return false;
+	}
+	
+	public boolean userExists(String username)
+	{
+		for (User user : userList)
+		{
+			if (user.getUsername().equalsIgnoreCase(username))
+			{
+				return true;
+			}
 		}
 		return false;
 	}
@@ -205,5 +217,11 @@ public class StateManager implements Serializable
         } catch (IOException e) {
             e.printStackTrace();
         }
+	}
+	
+	public void saveAndExit()
+	{
+		save();
+		System.exit(0);
 	}
 }

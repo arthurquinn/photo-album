@@ -39,7 +39,8 @@
               <items>
                 <Button fx:id="btnCreate" mnemonicParsing="false" text="Create User" />
                   <Button fx:id="btnDelete" mnemonicParsing="false" text="Delete User" />
-                  <Button fx:id="btnExit" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Exit" />
+                  <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Logout" />
+                  <Button fx:id="btnExit" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Exit" />
               </items>
             </ToolBar>
          </children>

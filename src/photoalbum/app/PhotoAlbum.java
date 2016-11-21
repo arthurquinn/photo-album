@@ -9,10 +9,21 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import photoalbum.view.LoginController;
 
+/**
+ * Used for creating the primary stage for the Photo Album application
+ * Entry point for the application
+ * @author Stephen Eisen
+ * @author Arthur Quintanilla
+ */
 
-public class PhotoAlbum extends Application {
+public class PhotoAlbum extends Application 
+{
+	/**
+	 * Creates the primary stage for the Photo Album application
+	 */
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) 
+	{
 		try 
 		{
 			FXMLLoader loader = new FXMLLoader();

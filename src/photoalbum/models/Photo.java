@@ -1,6 +1,7 @@
 package photoalbum.models;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,8 +10,13 @@ import java.util.ArrayList;
  * @author Arthur Quintanilla
  */
 
-public class Photo 
+public class Photo implements Serializable 
 {
+	/**
+	 *  The serial UID associated with Photo objects
+	 */
+	private static final long serialVersionUID = -4886797984856578196L;
+
 	/**
 	 * The caption associated with this Photo
 	 */

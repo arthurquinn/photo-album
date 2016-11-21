@@ -3,6 +3,7 @@ package photoalbum.view;
 import javafx.fxml.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import photoalbum.app.StateManager;
 import photoalbum.models.*;
@@ -16,7 +17,7 @@ import java.io.ObjectOutputStream;
 import java.util.*;
 
 /**
- * Controls the Login Scene
+ * Controls the actions of the login screen
  * @author Stephen Eisen
  * @author Arthur Quintanilla
  */
@@ -42,7 +43,13 @@ public class LoginController
 	 */
 	private void Login()
 	{
+		
 		StateManager stateManager = StateManager.getInstance();
+		
+		for (User user : stateManager.getUsers())
+		{
+			System.out.println(user);
+		}
 		
 		if (stateManager.validateUser(txtUsername.getText(), txtPassword.getText()))
 		{
@@ -69,6 +76,7 @@ public class LoginController
 			{
 				try 
 				{
+					stateManager.setActiveUser(stateManager.getUser(txtUsername.getText()));
 					FXMLLoader loader = new FXMLLoader();
 					loader.setLocation(getClass().getResource("/photoalbum/view/HomeScreen.fxml"));
 					AnchorPane root = (AnchorPane)loader.load();
@@ -76,7 +84,7 @@ public class LoginController
 					HomeScreenController controller = loader.getController();
 					controller.start();
 					
-					Scene scene = new Scene(root,400,600);
+					Scene scene = new Scene(root,800,600);
 					stateManager.getPrimaryStage().setScene(scene);
 					stateManager.getPrimaryStage().show();
 				} catch(Exception e) 
@@ -87,7 +95,12 @@ public class LoginController
 		}
 		else
 		{
-			// TODO: Enter error
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.initOwner(StateManager.getInstance().getPrimaryStage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid username or password.");
+            alert.setContentText("Enter a valid username and password.");
+            alert.showAndWait();
 		}
 	}
 	

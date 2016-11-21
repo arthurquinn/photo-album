@@ -22,7 +22,7 @@ import photoalbum.models.*;
 public class PhotoAlbum extends Application 
 {
 	/**
-	 * Creates the primary stage for the Photo Album application
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void start(Stage primaryStage) 

@@ -26,13 +26,16 @@ import java.io.ObjectInputStream;
 public class StateManager implements Serializable
 {
 	/**
-	 * 
+	 * The serial UID associated with the StateManager object
 	 */
 	private static final long serialVersionUID = 6760982129067815490L;
 	private transient static final String storeDir = "dat";
 	private transient static final String storeFile = "state.dat";
 	
 	
+	/**
+	 * The instance of StateManager associated with this application
+	 */
 	private transient static StateManager instance;
 
 	/**
@@ -96,9 +99,13 @@ public class StateManager implements Serializable
         }
     }
 	
+	/**
+	 * Sets up the StateManager object
+	 */
 	 public static void initialize()
 	 {
 	     instance = new StateManager();
+	     instance.addUser(new User("admin", "admin"));
 	     instance.save();
 	 }
 	
@@ -149,11 +156,11 @@ public class StateManager implements Serializable
 	
 	/**
 	 * Sets the currently active scene
-	 * @param path The new desired scene to be made active
+	 * @param scene The new desired scene to be made active
 	 */
-	public void setActiveScene(String path)
+	public void setActiveScene(Scene scene)
 	{
-		
+		this.activeScene = scene;
 	}
 	
 	/**
@@ -183,6 +190,22 @@ public class StateManager implements Serializable
 		userList.remove(user);
 	}
 	
+	public User getUser(String name)
+	{
+		for (User user : userList)
+		{
+			if (user.getUsername().equals(name))
+				return user;
+		}
+		return null;
+	}
+	
+	/**
+	 * Checks whether the fields entered match a username and its password
+	 * @param username The username to login with
+	 * @param password The password associated with the username
+	 * @return boolean if the username exists and matches the entered password - True else false
+	 */
 	public boolean validateUser(String username, String password)
 	{
 		for (User user : userList)
@@ -193,6 +216,11 @@ public class StateManager implements Serializable
 		return false;
 	}
 	
+	/**
+	 * Checks whether the username entered exists in the userList
+	 * @param username The username to check
+	 * @return boolean true if the name already exists else false
+	 */
 	public boolean userExists(String username)
 	{
 		for (User user : userList)
@@ -219,6 +247,10 @@ public class StateManager implements Serializable
         }
 	}
 	
+	/**
+	 * Saves the current state of the application and closes
+	 * - Safe close -
+	 */
 	public void saveAndExit()
 	{
 		save();

@@ -7,15 +7,22 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import photoalbum.app.StateManager;
 import photoalbum.models.User;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 
+/**
+ * Controls the actions of the user view screen
+ * @author Stephen Eisen
+ * @author Arthur Quintanilla
+ */
 public class UserViewController
 {
 	@FXML private TableView<User> userGrid;
@@ -27,8 +34,14 @@ public class UserViewController
 	@FXML private Button btnLogout;
 	@FXML private Button btnExit;
 	
+	/**
+	 * A list containing all of the users
+	 */
 	private ObservableList<User> userList;
 	
+	/**
+	 * Sets up the User View scene
+	 */
 	public void start()
 	{
 		populate();
@@ -39,6 +52,9 @@ public class UserViewController
 		btnExit.setOnAction(e -> exit());
 	}
 	
+	/**
+	 * Updates the current state of the list
+	 */
 	private void populate()
 	{		
 		userList = FXCollections.observableArrayList();
@@ -50,6 +66,10 @@ public class UserViewController
 		userGrid.setItems(userList);
 	}
 	
+	/**
+	 * Used to create a user object
+	 * Adds the new user to the list if the entered username is unique
+	 */
 	private void createUser()
 	{
 		try
@@ -75,13 +95,21 @@ public class UserViewController
 		
 	}
 	
+	/**
+	 * Deletes the selected user from the table
+	 * Cannot delete the admin account
+	 */
 	private void deleteUser()
 	{
 		User user = userGrid.getSelectionModel().getSelectedItem();
 		
 		if (user.getUsername().equals("admin"))
 		{
-			// TODO: Error here
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.initOwner(StateManager.getInstance().getPrimaryStage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Cannot delete admin account.");
+            alert.showAndWait();
 		}
 		else
 		{
@@ -92,6 +120,9 @@ public class UserViewController
 		}
 	}
 	
+	/**
+	 * Returns to the login scene when called
+	 */
 	private void logout()
 	{
 		try
@@ -113,6 +144,9 @@ public class UserViewController
 		}
 	}
 	
+	/**
+	 * Saves and safe quits the application
+	 */
 	private void exit()
 	{
 		StateManager.getInstance().saveAndExit();

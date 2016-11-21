@@ -113,4 +113,9 @@ public class User implements Serializable
 		this.passwordProp = new SimpleStringProperty(password);
 	}
 	
+	public List<Album> getAlbumList()
+	{
+		return this.albumList;
+	}
+	
 }

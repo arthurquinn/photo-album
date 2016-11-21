@@ -1,6 +1,8 @@
 package photoalbum.view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -9,6 +11,12 @@ import java.util.function.Consumer;
 import photoalbum.app.StateManager;
 import photoalbum.models.User;
 
+/**
+ * Controls the actions of the User add screen
+ * @author Stephen Eisen
+ * @author Arthur Quintanilla
+ */
+
 public class UserAddFormController
 {
 	@FXML private Button btnAdd;
@@ -16,8 +24,15 @@ public class UserAddFormController
 	@FXML private TextField txtUsername;
 	@FXML private PasswordField txtPassword;
 	
+	/**
+	 * Callback function for closing the form and return control to main stage
+	 */
 	private Runnable close;
 	
+	/**
+	 * Sets up the User Add scene
+	 * @param close function for closing the form
+	 */
 	public void start(Runnable close)
 	{
 		btnAdd.setOnAction(e -> AddUser());
@@ -26,6 +41,10 @@ public class UserAddFormController
 		this.close = close;
 	}
 	
+	/**
+	 * Used for adding a user to the userList
+	 * Will not work if the entered name already exists
+	 */
 	public void AddUser()
 	{
 		StateManager stateManager = StateManager.getInstance();
@@ -39,11 +58,19 @@ public class UserAddFormController
 		}
 		else
 		{
-			// TODO: Show error
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.initOwner(StateManager.getInstance().getPrimaryStage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Name must be unique (Case insensitive).");
+            alert.setContentText("Another user with this name already exists.");
+            alert.showAndWait();
 		}
 		
 	}
 	
+	/**
+	 * Closes the Add form
+	 */
 	public void Cancel()
 	{
 		close.run();

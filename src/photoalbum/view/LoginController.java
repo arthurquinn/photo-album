@@ -1,7 +1,9 @@
 package photoalbum.view;
 
 import javafx.fxml.*;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import photoalbum.app.StateManager;
 import photoalbum.models.*;
 
@@ -19,7 +21,7 @@ import java.util.*;
  * @author Arthur Quintanilla
  */
 
-public class LoginController 
+public class LoginController
 {
 	@FXML private TextField txtUsername;
 	@FXML private PasswordField txtPassword;
@@ -29,7 +31,7 @@ public class LoginController
 	/**
 	 * Sets up the Login Scene
 	 */
-	public void Start()
+	public void start()
 	{
 		btnLogin.setOnAction(e -> Login());
 		btnExit.setOnAction(e -> Exit());
@@ -42,17 +44,45 @@ public class LoginController
 	{
 		StateManager stateManager = StateManager.getInstance();
 		
-		List<User> users = stateManager.getUsers();
-
-
+		for (User user : stateManager.getUsers())
+		{
+			System.out.println(user.getUsername() + user.getPassword());
+		}
+		
+		if (stateManager.validateUser(txtUsername.getText(), txtPassword.getText()))
+		{
+			
+			try 
+			{
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("/photoalbum/view/HomeScreen.fxml"));
+				AnchorPane root = (AnchorPane)loader.load();
+				
+				HomeScreenController controller = loader.getController();
+				controller.start();
+				
+				Scene scene = new Scene(root,400,600);
+				stateManager.getPrimaryStage().setScene(scene);
+				stateManager.getPrimaryStage().show();
+			} catch(Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			
+		}
 	}
+	
 	
 	/**
 	 * Exits the Login Scene
 	 */
 	private void Exit()
 	{
-		System.exit(0);
+		StateManager.getInstance().addUser(new Admin("admin", "admin"));
+        StateManager.getInstance().save();
 	}
 	
 	

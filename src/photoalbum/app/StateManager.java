@@ -1,7 +1,10 @@
 package photoalbum.app;
 
 import photoalbum.models.*;
+import photoalbum.view.LoginController;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
 
 import java.util.*;
@@ -13,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+
 /**
  * Handles the state of the application between scenes
  * @author Stephen Eisen
@@ -21,6 +25,10 @@ import java.io.ObjectInputStream;
 
 public class StateManager implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6760982129067815490L;
 	private transient static final String storeDir = "dat";
 	private transient static final String storeFile = "state.dat";
 	
@@ -61,26 +69,32 @@ public class StateManager implements Serializable
 	 * @return The current instance associated with the manager
 	 */
 	public static StateManager getInstance()
-	{	
-		if (instance == null)
-		{
-			try
-			{
-				ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(String.format("%s/%s", storeDir, storeFile)));
-				instance = (StateManager)inStream.readObject();
-				return instance;
-			}
-			catch (IOException | ClassNotFoundException e)
-			{
-				e.printStackTrace(System.out);
-				return null;
-			}
-		}
-		else
-		{
-			return instance;
-		}
-	}
+    {    
+        if (instance == null)
+        {
+            try
+            {
+                ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(String.format("%s/%s", storeDir, storeFile)));
+                instance = (StateManager)inStream.readObject();
+                return instance;
+            }
+            catch (IOException | ClassNotFoundException e)
+            {
+                e.printStackTrace(System.out);
+                return null;
+            }
+        }
+        else
+        {
+            return instance;
+        }
+    }
+	
+	 public static void initialize()
+	 {
+	     instance = new StateManager();
+	     instance.save();
+	 }
 	
 	/**
 	 * Gets the currently active user 
@@ -129,14 +143,11 @@ public class StateManager implements Serializable
 	
 	/**
 	 * Sets the currently active scene
-	 * @param scene The new desired scene to be made active
+	 * @param path The new desired scene to be made active
 	 */
-	public void setActiveScene(Scene scene)
+	public void setActiveScene(String path)
 	{
-		this.activeScene = scene;
 		
-		primaryStage.setScene(scene);
-		primaryStage.show();
 	}
 	
 	/**
@@ -166,13 +177,27 @@ public class StateManager implements Serializable
 		userList.remove(user);
 	}
 	
+	public boolean validateUser(String username, String password)
+	{
+		for (User user : userList)
+		{
+			if (username.equals(user.getUsername()) && password.equals(user.getPassword()))
+				return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Saves the current state of the application
-	 * @throws IOException
 	 */
-	public void save() throws IOException
+	public void save()
 	{
-		ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(String.format("%s/%s", storeDir, storeFile)));
-		outStream.writeObject(instance);
+		ObjectOutputStream outStream;
+        try {
+            outStream = new ObjectOutputStream(new FileOutputStream(String.format("%s/%s", storeDir, storeFile)));
+            outStream.writeObject(instance);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 }

@@ -14,10 +14,14 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import photoalbum.models.Photo;
+
 public class ImageThumbnailController extends VBox
 {
 	@FXML private ImageView imgView;
 	@FXML private Label lblCaption;
+	
+	private Photo photoModel;
 	
 	public ImageThumbnailController()
 	{
@@ -34,14 +38,16 @@ public class ImageThumbnailController extends VBox
         }
 	}
 	
-	public void setImage(String imgPath)
+	public void setPhoto(Photo p)
 	{
-		imgView.setImage(new Image(imgPath));
+		imgView.setImage(new Image(p.getImgPath()));
+		lblCaption.setText(p.getCaption());
+		this.photoModel = p;
 	}
 	
-	public void setCaption(String text)
+	public Photo getPhoto()
 	{
-		this.lblCaption.setText(text);
+		return this.photoModel;
 	}
 	
 	public void setHighlight(boolean value)

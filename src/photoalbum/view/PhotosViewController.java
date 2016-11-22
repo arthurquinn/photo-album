@@ -2,6 +2,7 @@ package photoalbum.view;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -17,6 +20,9 @@ import javafx.stage.FileChooser;
 import photoalbum.app.StateManager;
 import photoalbum.models.Album;
 import photoalbum.models.Photo;
+import photoalbum.lib.AlbumLibrary;
+import photoalbum.lib.PhotoLibrary;
+
 
 public class PhotosViewController implements IController
 {
@@ -32,8 +38,9 @@ public class PhotosViewController implements IController
 	@FXML private MenuItem mnuSlideshow;
 	
 	@FXML private Label lblAlbumTitle;
-	
 	@FXML private FlowPane imgPane;
+	
+	private ImageThumbnailController selectedImage;
 	
 	public void start(Object args)
 	{
@@ -60,9 +67,7 @@ public class PhotosViewController implements IController
 		for (Photo photo : album.getPhotoList())
 		{
 			ImageThumbnailController imgControl = new ImageThumbnailController();
-			imgControl.setImage(photo.getImgPath());
-			imgControl.setCaption(photo.getCaption());
-			
+			imgControl.setPhoto(photo);
 			imgControl.setOnMouseClicked(e -> highlightImage(e.getSource()));
 			
 			imgPane.getChildren().add(imgControl);
@@ -79,6 +84,7 @@ public class PhotosViewController implements IController
 		}
 		
 		imgControl.setHighlight(true);
+		selectedImage = imgControl;
 	}
 	
 	private void logout()
@@ -101,20 +107,33 @@ public class PhotosViewController implements IController
 		
 		if (imgFile != null && imgFile.exists())
 		{
+			Photo photo = new Photo(imgFile.toURI().toString());
+			
 			ImageThumbnailController imgControl = new ImageThumbnailController();
-			imgControl.setImage(imgFile.toURI().toString());
+			imgControl.setPhoto(photo);
+			imgControl.setOnMouseClicked(e -> highlightImage(e.getSource()));
 			
 			imgPane.getChildren().add(imgControl);
 			
 			
-			StateManager.getInstance().getActiveAlbum().addPhoto(new Photo(imgFile.toURI().toString()));
+			StateManager.getInstance().getActiveAlbum().addPhoto(photo);
 			StateManager.getInstance().save();
 		}
 	}
 	
 	private void remove()
 	{
-		
+		if (selectedImage == null)
+		{
+			// TODO: Add error message here
+		}
+		else
+		{
+			Photo p = selectedImage.getPhoto();
+			PhotoLibrary.removePhoto(StateManager.getInstance().getActiveAlbum().getPhotoList(), p);
+			imgPane.getChildren().clear();
+			populate();
+		}
 	}
 	
 	private void copy()
@@ -129,7 +148,25 @@ public class PhotosViewController implements IController
 	
 	private void caption()
 	{
-		
+		if (selectedImage == null)
+		{
+			// TODO: Add error message
+		}
+		else
+		{
+			TextInputDialog dialog = new TextInputDialog();
+	        dialog.initOwner(StateManager.getInstance().getPrimaryStage()); dialog.setTitle("Add caption to photo");
+	        dialog.setHeaderText("Enter a caption for this photo");
+	        dialog.setContentText("Caption: ");
+
+	        Optional<String> result = dialog.showAndWait();
+	        if (result.isPresent() && !result.get().isEmpty()) 
+	        { 
+	        	PhotoLibrary.changeCaption(selectedImage.getPhoto(), result.get());
+	        	imgPane.getChildren().clear();
+	        	populate();
+	        }
+		}
 	}
 	
 	private void tags()

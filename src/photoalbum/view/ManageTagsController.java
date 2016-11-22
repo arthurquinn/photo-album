@@ -51,6 +51,11 @@ public class ManageTagsController implements IController
 	private ObservableList<Tag> tagList;
 	
 	/**
+	 * The stage onon which this scene is shown
+	 */
+	private Stage stage;
+	
+	/**
 	 * Sets up the Manage tags Controller
 	 */
 	public void start(Object args)
@@ -59,6 +64,7 @@ public class ManageTagsController implements IController
 		
 		Runnable r = (Runnable)argsArray[0];
 		activePhoto = (Photo)argsArray[1];
+		stage = (Stage)argsArray[2];
 		
 		btnAdd.setOnAction(e -> add());
 		btnDelete.setOnAction(e -> delete());
@@ -88,9 +94,10 @@ public class ManageTagsController implements IController
 		
 		Runnable r = () -> { stage.close(); populate(); };
 		
-		Object[] args = new Object[2];
+		Object[] args = new Object[3];
 		args[0] = r;
 		args[1] = activePhoto.getTagList();
+		args[2] = stage;
 		
 		StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/AddTagForm.fxml", args);
 	}
@@ -112,7 +119,7 @@ public class ManageTagsController implements IController
 		else
 		{
 			Alert alert = new Alert(AlertType.ERROR);
-    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.initOwner(stage);
     		alert.setTitle("Error");
     		alert.setHeaderText("No tag selected");
     		alert.setContentText("Select a tag to delete from this photo.");

@@ -223,7 +223,12 @@ public class PhotosViewController implements IController
 	{
 		if (selectedImage == null)
 		{
-			// TODO: Add error message here
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No photo selected");
+    		alert.setContentText("Select a photo to delete.");
+    		alert.showAndWait();
 		}
 		else
 		{
@@ -244,8 +249,8 @@ public class PhotosViewController implements IController
 			Alert alert = new Alert(AlertType.ERROR);
     		alert.initOwner(StateManager.getInstance().getPrimaryStage());
     		alert.setTitle("Error");
-    		alert.setHeaderText("No album selected");
-    		alert.setContentText("Select an album to copy the photo into.");
+    		alert.setHeaderText("No photo selected");
+    		alert.setContentText("Select a photo to copy.");
     		alert.showAndWait();
 		}
 		else
@@ -256,9 +261,10 @@ public class PhotosViewController implements IController
 			Runnable r = () -> stage.close();
 			Photo p = selectedImage.getPhoto();
 			
-			Object[] args = new Object[2];
+			Object[] args = new Object[3];
 			args[0] = r;
 			args[1] = p;
+			args[2] = stage;
 			
 			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/CopyPhotoForm.fxml", args);
 		}
@@ -274,8 +280,8 @@ public class PhotosViewController implements IController
 			Alert alert = new Alert(AlertType.ERROR);
     		alert.initOwner(StateManager.getInstance().getPrimaryStage());
     		alert.setTitle("Error");
-    		alert.setHeaderText("No album selected");
-    		alert.setContentText("Select an album to move the photo into.");
+    		alert.setHeaderText("No photo selected");
+    		alert.setContentText("Select a photo to move.");
     		alert.showAndWait();
 		}
 		else
@@ -286,9 +292,10 @@ public class PhotosViewController implements IController
 			Runnable r = () -> { stage.close(); imgPane.getChildren().clear(); populate(); };
 			Photo p = selectedImage.getPhoto();
 			
-			Object[] args = new Object[2];
+			Object[] args = new Object[3];
 			args[0] = r;
 			args[1] = p;
+			args[2] = stage;
 			
 			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/MovePhotoForm.fxml", args);
 		}
@@ -338,9 +345,10 @@ public class PhotosViewController implements IController
 			Runnable r = () -> stage.close();
 			Photo p = selectedImage.getPhoto();
 			
-			Object[] args = new Object[2];
+			Object[] args = new Object[3];
 			args[0] = r;
 			args[1] = p;
+			args[2] = stage;
 			
 			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/ManageTags.fxml", args);
 		}

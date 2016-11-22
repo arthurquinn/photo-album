@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 import photoalbum.app.StateManager;
 import photoalbum.lib.PhotoLibrary;
 import photoalbum.lib.UserLibrary;
@@ -80,11 +81,18 @@ public class SearchFormController implements IController
 	private Runnable closeForm;
 	
 	/**
+	 * Stage onto which this scene is displayed
+	 */
+	private Stage stage;
+	
+	/**
 	 * Sets up the Search form controller
 	 */
 	public void start(Object args)
 	{
-		closeForm = (Runnable)args;
+		Object[] argsArray = (Object[])args;
+		closeForm = (Runnable)argsArray[0];
+		stage = (Stage)argsArray[1];
 		
 		btnSearchDate.setOnAction(e -> searchDate());
 		btnSearchTag.setOnAction(e -> searchTag());
@@ -133,7 +141,7 @@ public class SearchFormController implements IController
 		    {
 		    	populate(null);
 				Alert alert = new Alert(AlertType.WARNING);
-	    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+	    		alert.initOwner(stage);
 	    		alert.setTitle("Warning");
 	    		alert.setHeaderText("No results found");
 	    		alert.setContentText("No photos match the constraints of this query.");
@@ -143,7 +151,7 @@ public class SearchFormController implements IController
 	    else
 	    {
 			Alert alert = new Alert(AlertType.ERROR);
-    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.initOwner(stage);
     		alert.setTitle("Error");
     		alert.setHeaderText("Missing start or end date");
     		alert.setContentText("Enter a start date and an end date to search for.");
@@ -167,7 +175,7 @@ public class SearchFormController implements IController
 			else
 			{
 				Alert alert = new Alert(AlertType.WARNING);
-	    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+	    		alert.initOwner(stage);
 	    		alert.setTitle("Warning");
 	    		alert.setHeaderText("No results found");
 	    		alert.setContentText("No photos match the constraints of this query.");
@@ -177,7 +185,7 @@ public class SearchFormController implements IController
 		else
 		{
 			Alert alert = new Alert(AlertType.ERROR);
-    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.initOwner(stage);
     		alert.setTitle("Error");
     		alert.setHeaderText("Missing tag type or value");
     		alert.setContentText("Enter a tag type and value to search for.");
@@ -193,7 +201,7 @@ public class SearchFormController implements IController
 		if (imgPane.getChildren().size() > 0)
 		{
 			TextInputDialog dialog = new TextInputDialog();
-	        dialog.initOwner(StateManager.getInstance().getPrimaryStage()); 
+	        dialog.initOwner(stage); 
 	        dialog.setTitle("Create Album From Search Results");
 	        dialog.setHeaderText("Enter a name for the new album.");
 	        dialog.setContentText("Name: ");
@@ -216,7 +224,7 @@ public class SearchFormController implements IController
 		else
 		{
 			Alert alert = new Alert(AlertType.ERROR);
-    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.initOwner(stage);
     		alert.setTitle("Error");
     		alert.setHeaderText("No search results");
     		alert.setContentText("Run a successful search query before attempting to create an album.");

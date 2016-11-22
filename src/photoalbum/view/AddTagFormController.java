@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import photoalbum.app.StateManager;
 import photoalbum.models.Tag;
 
@@ -48,6 +49,11 @@ public class AddTagFormController implements IController
 	private Runnable closeForm;
 	
 	/**
+	 * Stage onto which this scene is shown
+	 */
+	private Stage stage;
+	
+	/**
 	 * Sets up the Add tag form controller
 	 */
 	public void start(Object args)
@@ -56,6 +62,7 @@ public class AddTagFormController implements IController
 		
 		closeForm = (Runnable)argsArray[0];
 		tagList = (List<Tag>)argsArray[1];
+		stage = (Stage)argsArray[2];
 		
 		btnAdd.setOnAction(e -> add());
 		btnCancel.setOnAction(e -> closeForm.run());
@@ -78,7 +85,7 @@ public class AddTagFormController implements IController
 		else
 		{
 			Alert alert = new Alert(AlertType.ERROR);
-    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.initOwner(stage);
     		alert.setTitle("Error");
     		alert.setHeaderText("Missing tag type or value");
     		alert.setContentText("Enter a tag type and value pair.");

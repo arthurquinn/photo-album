@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import photoalbum.app.StateManager;
 import photoalbum.lib.AlbumLibrary;
 import photoalbum.models.Album;
@@ -50,6 +51,11 @@ public class MovePhotoFormController implements IController
 	private Runnable closeForm;
 	
 	/**
+	 * The stage onto which this scene is shown
+	 */
+	private Stage stage;
+	
+	/**
 	 * Sets up the Move photo form controller
 	 */
 	public void start(Object args)
@@ -58,6 +64,7 @@ public class MovePhotoFormController implements IController
 		
 		closeForm = (Runnable)argsArray[0];
 		photoToMove = (Photo)argsArray[1];
+		stage = (Stage)argsArray[2];
 		
 		btnMove.setOnAction(e -> move());
 		btnCancel.setOnAction(e -> closeForm.run());
@@ -94,7 +101,7 @@ public class MovePhotoFormController implements IController
 		else
 		{
 			Alert alert = new Alert(AlertType.ERROR);
-    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.initOwner(stage);
     		alert.setTitle("Error");
     		alert.setHeaderText("No album selected");
     		alert.setContentText("Select an album to move this photo into.");

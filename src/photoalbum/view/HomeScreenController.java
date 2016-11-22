@@ -141,6 +141,15 @@ public class HomeScreenController implements IController
 			StateManager.getInstance().setActiveAlbum(selectedAlbum);
 			StateManager.getInstance().setActiveScene("/photoalbum/view/PhotosView.fxml", null, 800, 600);	
 		}
+		else
+		{
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No album selected");
+    		alert.setContentText("Select an album to open.");
+    		alert.showAndWait();
+		}
 	}
 	
 	/**
@@ -162,9 +171,13 @@ public class HomeScreenController implements IController
 			Stage stage = new Stage(StageStyle.DECORATED);
 			stage.setTitle("Search for Photos");
 			
+			Object[] argsArray = new Object[2];
 			Runnable r = () -> { stage.close(); populate(); };
 			
-			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/SearchForm.fxml", (Object)r);
+			argsArray[0] = r;
+			argsArray[1] = stage;
+			
+			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/SearchForm.fxml", argsArray);
 		}
 	}
 	
@@ -179,11 +192,20 @@ public class HomeScreenController implements IController
         dialog.setContentText("Name: ");
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) 
+        if (result.isPresent() && !result.get().isEmpty()) 
         { 
         	StateManager.getInstance().getActiveUser().addAlbum(new Album(result.get()));
         	StateManager.getInstance().save();
         	populate();
+        }
+        else
+        {
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Album name empty.");
+    		alert.setContentText("Cannot create and album with an empty name.");
+    		alert.showAndWait();
         }
 	}
 	
@@ -234,7 +256,7 @@ public class HomeScreenController implements IController
     		alert.initOwner(StateManager.getInstance().getPrimaryStage());
     		alert.setTitle("Confirmation");
     		alert.setHeaderText("Are you sure you want to delete this album?");
-    		alert.setContentText(String.format("Album Name: %s", selectedAlbum.getName()));
+    		alert.setContentText(String.format("Album Name: %s\nAll photos and photo metadata for this album will be deleted as well.", selectedAlbum.getName()));
     		Optional<ButtonType> response = alert.showAndWait();
     		
     		if (response.isPresent() && response.get() == ButtonType.OK)

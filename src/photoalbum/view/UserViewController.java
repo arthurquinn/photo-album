@@ -106,10 +106,14 @@ public class UserViewController implements IController
 	{
 		Stage stage = new Stage(StageStyle.DECORATED);
 		stage.setTitle("Add User");
+		
 		Runnable r = () -> { stage.close(); populate(); };
 		
-		StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/UserAddForm.fxml", (Object)r);
+		Object[] argsArray = new Object[2];
+		argsArray[0] = r;
+		argsArray[1] = stage;
 		
+		StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/UserAddForm.fxml", argsArray);
 	}
 	
 	/**

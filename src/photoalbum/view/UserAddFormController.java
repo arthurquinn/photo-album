@@ -6,6 +6,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.util.function.Consumer;
 
 import photoalbum.app.StateManager;
@@ -46,12 +48,20 @@ public class UserAddFormController implements IController
 	private Runnable close;
 	
 	/**
+	 * The stage onto which this window is displayed
+	 */
+	private Stage stage;
+	
+	/**
 	 * Sets up the User Add scene
 	 * @param close function for closing the form
 	 */
-	public void start(Object close)
+	public void start(Object args)
 	{	
-		this.close = (Runnable)close;
+		Object[] argsArray = (Object[])args;
+		this.close = (Runnable)argsArray[0];
+		this.stage = (Stage)argsArray[1];
+		
 		btnAdd.setOnAction(e -> addUser());
 		btnCancel.setOnAction(e -> Cancel());
 	}
@@ -76,7 +86,7 @@ public class UserAddFormController implements IController
 			else
 			{
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.initOwner(StateManager.getInstance().getPrimaryStage());
+				alert.initOwner(stage);
 	            alert.setTitle("Error");
 	            alert.setHeaderText("Name must be unique (Case insensitive).");
 	            alert.setContentText("Another user with this name already exists.");
@@ -86,7 +96,7 @@ public class UserAddFormController implements IController
 		else
 		{
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(StateManager.getInstance().getPrimaryStage());
+			alert.initOwner(stage);
             alert.setTitle("Error");
             alert.setHeaderText("Missing username or password");
             alert.setContentText("Username and password fields cannot be empty.");

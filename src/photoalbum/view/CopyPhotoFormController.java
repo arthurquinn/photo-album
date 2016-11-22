@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import photoalbum.app.StateManager;
 import photoalbum.lib.AlbumLibrary;
 import photoalbum.lib.PhotoLibrary;
@@ -53,6 +54,11 @@ public class CopyPhotoFormController implements IController
 	private Runnable closeForm;
 	
 	/**
+	 * The stage onto which this scene is shown
+	 */
+	private Stage stage;
+	
+	/**
 	 * Sets up the Copy photo form controller
 	 */
 	public void start(Object args)
@@ -61,6 +67,7 @@ public class CopyPhotoFormController implements IController
 		
 		closeForm = (Runnable)argsArray[0];
 		photoToCopy = (Photo)argsArray[1];
+		stage = (Stage)argsArray[2];
 		
 		btnCopy.setOnAction(e -> copy());
 		btnCancel.setOnAction(e -> closeForm.run());
@@ -95,7 +102,7 @@ public class CopyPhotoFormController implements IController
 		else
 		{
 			Alert alert = new Alert(AlertType.ERROR);
-    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.initOwner(stage);
     		alert.setTitle("Error");
     		alert.setHeaderText("No album selected");
     		alert.setContentText("Select an album to copy this photo.");

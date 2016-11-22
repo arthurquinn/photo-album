@@ -99,11 +99,14 @@ public class SearchFormController implements IController
 	private void populate(List<Photo> photoList)
 	{
 		imgPane.getChildren().clear();
-		for (Photo photo : photoList)
+		if (photoList != null)
 		{
-			ImageThumbnailController imgControl = new ImageThumbnailController();
-			imgControl.setPhoto(photo);
-			imgPane.getChildren().add(imgControl);
+			for (Photo photo : photoList)
+			{
+				ImageThumbnailController imgControl = new ImageThumbnailController();
+				imgControl.setPhoto(photo);
+				imgPane.getChildren().add(imgControl);
+			}	
 		}
 	}
 	
@@ -112,25 +115,38 @@ public class SearchFormController implements IController
 	 */
 	private void searchDate()
 	{
-	    Calendar from = Calendar.getInstance();
-	    from.set(dateFrom.getValue().getYear(), dateFrom.getValue().getMonthValue(), dateFrom.getValue().getDayOfMonth());
-	    
-	    Calendar to = Calendar.getInstance();
-	    to.set(dateTo.getValue().getYear(), dateTo.getValue().getMonthValue(), dateTo.getValue().getDayOfMonth());
-	    
-	    List<Photo> results = UserLibrary.searchByDateRange(from, to);
-
-	    if (results.size() > 0)
+	    if (dateFrom.getValue() != null && dateTo.getValue() != null)
 	    {
-	    	populate(results);
+		    Calendar from = Calendar.getInstance();
+		    from.set(dateFrom.getValue().getYear(), dateFrom.getValue().getMonthValue(), dateFrom.getValue().getDayOfMonth());
+		    
+		    Calendar to = Calendar.getInstance();
+		    to.set(dateTo.getValue().getYear(), dateTo.getValue().getMonthValue(), dateTo.getValue().getDayOfMonth());
+		    
+		    List<Photo> results = UserLibrary.searchByDateRange(from, to);
+
+		    if (results.size() > 0)
+		    {
+		    	populate(results);
+		    }
+		    else
+		    {
+		    	populate(null);
+				Alert alert = new Alert(AlertType.WARNING);
+	    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+	    		alert.setTitle("Warning");
+	    		alert.setHeaderText("No results found");
+	    		alert.setContentText("No photos match the constraints of this query.");
+	    		alert.showAndWait();
+		    }	
 	    }
 	    else
 	    {
-			Alert alert = new Alert(AlertType.WARNING);
+			Alert alert = new Alert(AlertType.ERROR);
     		alert.initOwner(StateManager.getInstance().getPrimaryStage());
-    		alert.setTitle("Warning");
-    		alert.setHeaderText("No results found");
-    		alert.setContentText("No photos match the constraints of this query.");
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Missing start or end date");
+    		alert.setContentText("Enter a start date and an end date to search for.");
     		alert.showAndWait();
 	    }
 	}

@@ -37,7 +37,7 @@ public class UserAddFormController implements IController
 	public void start(Object close)
 	{	
 		this.close = (Runnable)close;
-		btnAdd.setOnAction(e -> AddUser());
+		btnAdd.setOnAction(e -> addUser());
 		btnCancel.setOnAction(e -> Cancel());
 	}
 	
@@ -45,7 +45,7 @@ public class UserAddFormController implements IController
 	 * Used for adding a user to the userList
 	 * Will not work if the entered name already exists
 	 */
-	public void AddUser()
+	public void addUser()
 	{
 		StateManager stateManager = StateManager.getInstance();
 		

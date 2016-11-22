@@ -193,6 +193,11 @@ public class PhotosViewController implements IController
 	
 	private void slideshow()
 	{
+		Stage stage = new Stage(StageStyle.DECORATED);
+		stage.setTitle(String.format("Slideshow - Album: %s", StateManager.getInstance().getActiveAlbum().getName()));
 		
+		Runnable r = () -> stage.close();
+		
+		StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/SlideshowView.fxml", (Object)r);
 	}
 }

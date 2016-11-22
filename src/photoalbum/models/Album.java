@@ -64,7 +64,7 @@ public class Album implements Serializable
 	
 	/**
 	 * Constructs an Album object
-	 * @param The name of this album
+	 * @param name the name of this album
 	 */
 	public Album(String name)
 	{

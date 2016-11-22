@@ -16,7 +16,7 @@ import photoalbum.models.Photo;
 /**
  * Creates a slide show for the viewer
  * @author Stephen Eisen
- * @authro Arthur Quintanilla
+ * @author Arthur Quintanilla
  */
 
 public class SlideshowViewController implements IController

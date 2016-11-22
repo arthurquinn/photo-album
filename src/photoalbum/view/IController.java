@@ -9,7 +9,7 @@ public interface IController
 {
 	/**
 	 * Abstract method for all controllers 
-	 * @param args
+	 * @param args Arguments to pass to controller during start
 	 */
 	void start(Object args);
 }

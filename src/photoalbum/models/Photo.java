@@ -41,6 +41,8 @@ public class Photo implements Serializable
 	
 	/**
 	 * Constructs a Photo object
+	 * @param imgPath The path to the image to use for this photo object
+	 * @param dateTaken The date this photo was taken
 	 */
 	public Photo(String imgPath, Calendar dateTaken)
 	{

@@ -171,7 +171,10 @@ public class StateManager implements Serializable
 	
 	/**
 	 * Sets the currently active scene
-	 * @param scene The new desired scene to be made active
+	 * @param fxmlPath The new desired scene to be made active
+	 * @param args Any argument to be passed to the next scene
+	 * @param x The resolution of the new scene
+	 * @param y The resolution of the new scene
 	 */
 	public void setActiveScene(String fxmlPath, Object args, int x, int y)
 	{

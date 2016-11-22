@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.layout.AnchorPane;
 import photoalbum.models.Photo;
 import photoalbum.models.Tag;
 
@@ -20,6 +20,11 @@ public class DisplayPhotoViewController implements IController
 	 * The selected image to be displayed
 	 */
 	@FXML private ImageView imgView;
+	
+	/**
+	 * The anchor node for the imgView
+	 */
+	@FXML private AnchorPane imgPane;
 	
 	/**
 	 * The caption associated with the selected photo
@@ -50,6 +55,9 @@ public class DisplayPhotoViewController implements IController
 		
 		Runnable r = (Runnable)argsArray[0];
 		Photo p = (Photo)argsArray[1];
+		
+		imgView.fitWidthProperty().bind(imgPane.widthProperty());
+		imgView.fitHeightProperty().bind(imgPane.heightProperty());
 		
 		imgView.setImage(new Image(p.getImgPath()));
 		lblCaption.setText(String.format("Caption: %s", p.getCaption()));

@@ -210,7 +210,6 @@ public class StateManager implements Serializable
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 
 			stage.setScene(new Scene((AnchorPane)loader.load()));
-			stage.setResizable(false);
 			
 			IController controller = loader.getController();
 			controller.start(args);

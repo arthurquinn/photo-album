@@ -94,6 +94,8 @@ public class SearchFormController implements IController
 		closeForm = (Runnable)argsArray[0];
 		stage = (Stage)argsArray[1];
 		
+		stage.setResizable(false);
+		
 		btnSearchDate.setOnAction(e -> searchDate());
 		btnSearchTag.setOnAction(e -> searchTag());
 		btnCreate.setOnAction(e -> create());

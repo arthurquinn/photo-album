@@ -8,20 +8,40 @@ import photoalbum.app.StateManager;
 import photoalbum.models.Photo;
 import photoalbum.models.Tag;
 
+/**
+ * Static Logic methods for computations involving photos
+ * @author Stephen Eisen
+ * @author Arthur Quintanilla
+ */
 public class PhotoLibrary
 {
+	/**
+	 * Removes a photo from an album
+	 * @param photoList The desired photo list(album) to delete from
+	 * @param p The desired photo to delete
+	 */
 	public static void removePhoto(List<Photo> photoList, Photo p)
 	{
 		photoList.remove(p);
 		StateManager.getInstance().save();
 	}
 	
+	/**
+	 * Changes the caption associated with a photo
+	 * @param p The desired photo to change the caption on
+	 * @param caption The new desired caption for the photo
+	 */
 	public static void changeCaption(Photo p, String caption)
 	{
 		p.setCaption(caption);
 		StateManager.getInstance().save();
 	}
 	
+	/**
+	 * Copies a photo from one album to another album
+	 * @param p The photo object to be copied
+	 * @return The new photo object to be placed in the desired album
+	 */
 	public static Photo copyPhoto(Photo p)
 	{
 		// Copy date taken

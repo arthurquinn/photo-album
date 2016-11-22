@@ -30,21 +30,69 @@ import java.util.*;
 
 public class HomeScreenController implements IController
 {
-	
+	/**
+	 * MenuItem for opening an album
+	 */
 	@FXML private MenuItem menuOpen;
+	
+	/**
+	 * MenuItem for searching for an album
+	 */
 	@FXML private MenuItem menuSearch;
+	
+	/**
+	 * MenuItem for creating an album
+	 */
 	@FXML private MenuItem menuCreate;
+	
+	/**
+	 * MenuItem for renaming an album
+	 */
 	@FXML private MenuItem menuRename;
+	
+	/**
+	 * MenuItem for deleting an album
+	 */
 	@FXML private MenuItem menuDelete;
+	
+	/**
+	 * MenuItem for logging out 
+	 */
 	@FXML private MenuItem menuLogout;
+	
+	/**
+	 * MenuItem for safe quitting the application
+	 */
 	@FXML private MenuItem menuExit;
 	
+	/**
+	 * A grid containing all the albums
+	 */
 	@FXML private TableView<Album> albumGrid;
+	
+	/**
+	 * The name of the album in the list
+	 */
 	@FXML private TableColumn<Album, String> colName;
+	
+	/**
+	 * The number of photos within an album
+	 */
 	@FXML private TableColumn<Album, String> colNumPhotos;
+	
+	/**
+	 * The oldest photo within an album
+	 */
 	@FXML private TableColumn<Album, String> colOldest;
+	
+	/**
+	 * The range of dates within an album
+	 */
 	@FXML private TableColumn<Album, String> colRange;
 	
+	/**
+	 * Observable list of the albums for a user
+	 */
 	private ObservableList<Album> albumList;
 	
 	/**
@@ -82,6 +130,9 @@ public class HomeScreenController implements IController
 		albumGrid.setItems(albumList);
 	}
 	
+	/**
+	 * Opens a selected album
+	 */
 	private void open()
 	{
 		Album selectedAlbum = albumGrid.getSelectionModel().getSelectedItem();
@@ -93,6 +144,9 @@ public class HomeScreenController implements IController
 		}
 	}
 	
+	/**
+	 * Searches for a photo
+	 */
 	private void search()
 	{
 		if (StateManager.getInstance().getActiveUser().getAlbumList().isEmpty())
@@ -102,6 +156,7 @@ public class HomeScreenController implements IController
     		alert.setTitle("Error");
     		alert.setHeaderText("No albums for this user");
     		alert.setContentText("Cannot search for photos when there are no albums");
+    		alert.showAndWait();
 		}
 		else
 		{			
@@ -114,6 +169,9 @@ public class HomeScreenController implements IController
 		}
 	}
 	
+	/**
+	 * Creates an album 
+	 */
 	private void create()
 	{
 		TextInputDialog dialog = new TextInputDialog();
@@ -130,6 +188,9 @@ public class HomeScreenController implements IController
         }
 	}
 	
+	/**
+	 * Renames an album
+	 */
 	private void rename()
 	{
 		Album selectedAlbum = albumGrid.getSelectionModel().getSelectedItem();
@@ -152,6 +213,9 @@ public class HomeScreenController implements IController
 		}
 	}
 	
+	/**
+	 * Deletes an album
+	 */
 	private void delete()
 	{
 		Album selectedAlbum = albumGrid.getSelectionModel().getSelectedItem();
@@ -174,12 +238,18 @@ public class HomeScreenController implements IController
 		}
 	}
 	
+	/**
+	 * Returns the user to the login screen
+	 */
 	private void logout()
 	{
 		StateManager.getInstance().setActiveUser(null);
 		StateManager.getInstance().setActiveScene("/photoalbum/view/Login.fxml", null, 400, 600);
 	}
 	
+	/**
+	 * Safe quits the application
+	 */
 	private void exit()
 	{
 		StateManager.getInstance().saveAndExit();

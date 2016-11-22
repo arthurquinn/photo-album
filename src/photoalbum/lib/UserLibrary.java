@@ -10,8 +10,19 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Static Logic methods for computations involving users
+ * @author Stephen Eisen
+ * @author Arthur Quintanilla
+ */
 public class UserLibrary
 {
+	/**
+	 * Gets a specified user from a list of users
+	 * @param userList The list of users to search from
+	 * @param username The specified user object to search for
+	 * @return The user object matching the specified name
+	 */
 	public static User getUser(List<User> userList, String username)
 	{
 		for (User user : userList)
@@ -24,6 +35,12 @@ public class UserLibrary
 		return null;
 	}
 	
+	/**
+	 * Checks to see if a user exits inside a user list
+	 * @param userList The list of users to search from
+	 * @param username The specified user object to search for
+	 * @return True if the user was found else false
+	 */
 	public static boolean userExists(List<User> userList, String username)
 	{
 		for (User user : userList)
@@ -36,6 +53,13 @@ public class UserLibrary
 		return false;
 	}
 	
+	/**
+	 * Checks to see if the password entered matches the password for the username entered
+	 * @param userList The list of users to search from
+	 * @param username The specified user object to search for
+	 * @param password The password to be checked against the username
+	 * @return True if the password matches the usernames password else false
+	 */
 	public static boolean validateUser(List<User> userList, String username, String password)
 	{
 		for (User user : userList)
@@ -48,6 +72,12 @@ public class UserLibrary
 		return false;
 	}
 	
+	/**
+	 * Finds all photos within a specified date range
+	 * @param from The beginning of the range to be checked
+	 * @param to The end of the range to be checked
+	 * @return The list of all photos matching the criteria
+	 */
 	public static List<Photo> searchByDateRange(Calendar from, Calendar to)
 	{
 		List<Photo> results = new ArrayList<Photo>();
@@ -64,6 +94,12 @@ public class UserLibrary
 		return results;
 	}
 	
+	/**
+	 * Finds all photos with the specified tag value and tag type
+	 * @param tagType The tag type to search for
+	 * @param tagValue The tag value to search for
+	 * @return The list of all photos matching the criteria
+	 */
 	public static List<Photo> searchByTagValuePair(String tagType, String tagValue)
 	{
 		List<Photo> results = new ArrayList<Photo>();

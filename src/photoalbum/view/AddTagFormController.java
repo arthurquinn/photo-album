@@ -82,6 +82,7 @@ public class AddTagFormController implements IController
     		alert.setTitle("Error");
     		alert.setHeaderText("Missing tag type or value");
     		alert.setContentText("Enter a tag type and value pair.");
+    		alert.showAndWait();
 		}
 	}
 }

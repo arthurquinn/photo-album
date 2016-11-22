@@ -4,6 +4,7 @@ import java.util.List;
 
 import photoalbum.app.StateManager;
 import photoalbum.models.Album;
+import photoalbum.models.Photo;
 
 public class AlbumLibrary
 {
@@ -33,5 +34,11 @@ public class AlbumLibrary
 			}
 		}
 		return false;
+	}
+	
+	public static void addPhotoToAlbum(Album a, Photo p)
+	{
+		a.addPhoto(p);
+		StateManager.getInstance().save();
 	}
 }

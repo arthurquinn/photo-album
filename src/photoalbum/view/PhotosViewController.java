@@ -140,12 +140,46 @@ public class PhotosViewController implements IController
 	
 	private void copy()
 	{
-		
+		if (selectedImage == null)
+		{
+			// TODO: Add error message here
+		}
+		else
+		{			
+			Stage stage = new Stage(StageStyle.DECORATED);
+			stage.setTitle("Copy Photo");
+			
+			Runnable r = () -> stage.close();
+			Photo p = selectedImage.getPhoto();
+			
+			Object[] args = new Object[2];
+			args[0] = r;
+			args[1] = p;
+			
+			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/CopyPhotoForm.fxml", args);
+		}
 	}
 	
 	private void move()
 	{
-		
+		if (selectedImage == null)
+		{
+			// TODO: Add error message here
+		}
+		else
+		{			
+			Stage stage = new Stage(StageStyle.DECORATED);
+			stage.setTitle("Move Photo");
+			
+			Runnable r = () -> { stage.close(); imgPane.getChildren().clear(); populate(); };
+			Photo p = selectedImage.getPhoto();
+			
+			Object[] args = new Object[2];
+			args[0] = r;
+			args[1] = p;
+			
+			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/MovePhotoForm.fxml", args);
+		}
 	}
 	
 	private void caption()

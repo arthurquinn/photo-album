@@ -58,7 +58,7 @@ public class LoginController implements IController
 			if (txtUsername.getText().equals("admin"))
 			{
 				stateManager.setActiveUser(UserLibrary.getUser(stateManager.getUsers(), "admin"));
-				stateManager.setActiveScene("/photoalbum/view/UserView.fxml", null, 600, 600);
+				stateManager.setActiveScene("/photoalbum/view/UserView.fxml", null, 800, 600);
 			}
 			else
 			{

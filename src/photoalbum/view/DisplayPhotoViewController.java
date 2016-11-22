@@ -61,7 +61,7 @@ public class DisplayPhotoViewController implements IController
 		
 		imgView.setImage(new Image(p.getImgPath()));
 		lblCaption.setText(String.format("Caption: %s", p.getCaption()));
-		lblCaptureDateTime.setText(String.format("Capture Date/Time: ", p.getDateTaken().getTime().toString()));
+		lblCaptureDateTime.setText(String.format("Capture Date/Time: %s", p.getDateTaken().getTime().toString()));
 		setTagText(p);
 		btnClose.setOnAction(e -> r.run());
 	}

@@ -54,7 +54,6 @@ public class UserLibrary
 		{
 			for (Photo photo : album.getPhotoList())
 			{
-				System.out.println(photo.getDateTaken());
 				if (photo.getDateTaken().before(to) && photo.getDateTaken().after(from))
 				{
 					results.add(photo);

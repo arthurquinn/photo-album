@@ -46,8 +46,14 @@ public class Album implements Serializable
 	 */
 	private String name;
 	
+	/**
+	 * The date of the oldest photo in the album
+	 */
 	private Calendar oldestPhotoDate;
 	
+	/**
+	 * The date of the newest photo in the album
+	 */
 	private Calendar newestPhotoDate;
 
 	
@@ -150,6 +156,9 @@ public class Album implements Serializable
 		this.nameProp = new SimpleStringProperty(name);
 	}
 	
+	/**
+	 * Sets the date of the oldest photo within this album
+	 */
 	private void setOldestPhotoDate()
 	{
 		if (photoList.size() < 1)
@@ -170,6 +179,9 @@ public class Album implements Serializable
 		}
 	}
 	
+	/**
+	 * Sets the date of the newest photo in this album
+	 */
 	private void setNewestPhotoDate()
 	{
 		if (photoList.size() < 1)

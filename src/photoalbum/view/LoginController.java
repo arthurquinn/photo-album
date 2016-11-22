@@ -26,9 +26,24 @@ import java.util.*;
 
 public class LoginController implements IController
 {
+	/**
+	 * The username entered
+	 */
 	@FXML private TextField txtUsername;
+	
+	/**
+	 * The password entered
+	 */
 	@FXML private PasswordField txtPassword;
+	
+	/**
+	 * Confirmation button for login
+	 */
 	@FXML private Button btnLogin;
+	
+	/**
+	 * Button for exiting the application
+	 */
 	@FXML private Button btnExit;
 	
 	/**

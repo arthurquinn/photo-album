@@ -31,7 +31,9 @@ public class DisplayPhotoViewController implements IController
 	 */
 	@FXML private Label lblCaptureDateTime;
 	
-	
+	/**
+	 * The label to display the tag information for the selected photo
+	 */
 	@FXML private Label lblTags;
 	
 	/**

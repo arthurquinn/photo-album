@@ -16,13 +16,31 @@ import javafx.scene.paint.Color;
 
 import photoalbum.models.Photo;
 
+/**
+ * Custom fxml control to display an image with its caption
+ * @author Stephen Eisen
+ * @author Arthur Quintanilla
+ */
 public class ImageThumbnailController extends VBox
 {
+	/**
+	 * The photo to be displayed
+	 */
 	@FXML private ImageView imgView;
+	
+	/**
+	 * The caption to be associated with the photo
+	 */
 	@FXML private Label lblCaption;
 	
+	/**
+	 * Temporary reference to photo object for the display
+	 */
 	private Photo photoModel;
 	
+	/**
+	 * Constructs an ImageThumbnailController obnject
+	 */
 	public ImageThumbnailController()
 	{
         try 
@@ -38,6 +56,10 @@ public class ImageThumbnailController extends VBox
         }
 	}
 	
+	/**
+	 * Sets the current photo object for this Image controller
+	 * @param p The new desired image for this object
+	 */
 	public void setPhoto(Photo p)
 	{
 		imgView.setImage(new Image(p.getImgPath()));
@@ -45,11 +67,19 @@ public class ImageThumbnailController extends VBox
 		this.photoModel = p;
 	}
 	
+	/**
+	 * Gets the currently selected photo for this Image object
+	 * @return The photo associated with this image object
+	 */
 	public Photo getPhoto()
 	{
 		return this.photoModel;
 	}
 	
+	/**
+	 * Sets the highlight boolean to true or false
+	 * @param value Highlights the object if true. False will remove the highlight.
+	 */
 	public void setHighlight(boolean value)
 	{
 		if (value)

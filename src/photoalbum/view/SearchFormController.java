@@ -22,20 +22,66 @@ import photoalbum.lib.UserLibrary;
 import photoalbum.models.Album;
 import photoalbum.models.Photo;
 
+/**
+ * Controller for the search form
+ * @author Stephen Eisen
+ * @author Arthur Quintanilla
+ */
 public class SearchFormController implements IController
 {
+	/**
+	 * Confirmation Button for the search date
+	 */
 	@FXML private Button btnSearchDate;
+	
+	/**
+	 * Confirmation Button for the search tag
+	 */
 	@FXML private Button btnSearchTag;
+	
+	/**
+	 * The beginning date to search from
+	 */
 	@FXML private DatePicker dateFrom;
+	
+	/**
+	 * The end date to search to
+	 */
 	@FXML private DatePicker dateTo;
+	
+	/**
+	 * The tag type to search for
+	 */
 	@FXML private TextField txtType;
+	
+	/**
+	 * The tag value to search for
+	 */
 	@FXML private TextField txtValue;
+	
+	/**
+	 * Panel that holds the image thumbnails
+	 */
 	@FXML private FlowPane imgPane;
+	
+	/**
+	 * Confirmation button to create an album from the search results
+	 */
 	@FXML private Button btnCreate;
+	
+	/**
+	 * Button to return to the album select screen
+	 */
 	@FXML private Button btnClose;
 	
+	/**
+	 * Function to close the form
+	 */
 	private Runnable closeForm;
 	
+	/**
+	 * Sets up the Search form controller
+	 */
 	public void start(Object args)
 	{
 		closeForm = (Runnable)args;
@@ -46,6 +92,10 @@ public class SearchFormController implements IController
 		btnClose.setOnAction(e -> closeForm.run());
 	}
 	
+	/**
+	 * Updates the photoList after a search query is executed
+	 * @param photoList The search results
+	 */
 	private void populate(List<Photo> photoList)
 	{
 		imgPane.getChildren().clear();
@@ -57,6 +107,9 @@ public class SearchFormController implements IController
 		}
 	}
 	
+	/**
+	 * Searches all photos in all albums for a specific user based on a date range
+	 */
 	private void searchDate()
 	{
 	    Calendar from = Calendar.getInstance();
@@ -82,6 +135,9 @@ public class SearchFormController implements IController
 	    }
 	}
 	
+	/**
+	 * Searches all photos in all albums for a specific user based on tag value pairs
+	 */
 	private void searchTag()
 	{
 		if (!txtType.getText().isEmpty() && !txtValue.getText().isEmpty())
@@ -113,6 +169,9 @@ public class SearchFormController implements IController
 		}
 	}
 	
+	/**
+	 * Creates an album from search query results
+	 */
 	private void create()
 	{
 		if (imgPane.getChildren().size() > 0)

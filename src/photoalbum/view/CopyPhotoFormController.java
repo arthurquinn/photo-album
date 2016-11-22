@@ -99,6 +99,7 @@ public class CopyPhotoFormController implements IController
     		alert.setTitle("Error");
     		alert.setHeaderText("No album selected");
     		alert.setContentText("Select an album to copy this photo.");
+    		alert.showAndWait();
 		}
 	}
 }

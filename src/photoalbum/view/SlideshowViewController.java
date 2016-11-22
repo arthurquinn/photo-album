@@ -32,7 +32,7 @@ public class SlideshowViewController implements IController
 	@FXML private Button btnNext;
 	
 	/**
-	 * Button for closing the slidshow
+	 * Button for closing the slideshow
 	 */
 	@FXML private Button btnClose;
 	

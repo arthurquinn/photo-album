@@ -109,6 +109,10 @@ public class Photo implements Serializable
 		return this.tagList;
 	}
 	
+	/**
+	 * Sets the list of tags associated with this photo object
+	 * @param tagList The list of tags to be associated
+	 */
 	public void setTagList(List<Tag> tagList)
 	{
 		this.tagList = tagList;

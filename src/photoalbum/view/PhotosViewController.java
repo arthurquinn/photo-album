@@ -276,6 +276,7 @@ public class PhotosViewController implements IController
     		alert.setTitle("Error");
     		alert.setHeaderText("No album selected");
     		alert.setContentText("Select an album to move the photo into.");
+    		alert.showAndWait();
 		}
 		else
 		{			
@@ -305,6 +306,7 @@ public class PhotosViewController implements IController
     		alert.setTitle("Error");
     		alert.setHeaderText("No photo selected");
     		alert.setContentText("Select a photo to caption.");
+    		alert.showAndWait();
 		}
 		else
 		{
@@ -349,6 +351,7 @@ public class PhotosViewController implements IController
     		alert.setTitle("Error");
     		alert.setHeaderText("No photo selected");
     		alert.setContentText("Select a photo to manage its tags.");
+    		alert.showAndWait();
 		}
 	}
 	
@@ -378,6 +381,7 @@ public class PhotosViewController implements IController
     		alert.setTitle("Error");
     		alert.setHeaderText("No photo selected");
     		alert.setContentText("Select a photo to display.");
+    		alert.showAndWait();
 		}
 	}
 	
@@ -402,6 +406,7 @@ public class PhotosViewController implements IController
     		alert.setTitle("Error");
     		alert.setHeaderText("No photos in album");
     		alert.setContentText("Cannot display a slideshow for empty album.");
+    		alert.showAndWait();
 		}
 	}
 }

@@ -42,7 +42,7 @@ public class PhotoAlbum extends Application
             
             StateManager.getInstance().setPrimaryStage(primaryStage);
             
-            StateManager.getInstance().setActiveScene("/photoalbum/view/Login.fxml", null, 400, 600);
+            StateManager.getInstance().setActiveScene("/photoalbum/view/Login.fxml", null, 257, 338);
 
         } catch(Exception e) 
         {

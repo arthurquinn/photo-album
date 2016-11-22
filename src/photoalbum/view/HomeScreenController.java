@@ -244,7 +244,7 @@ public class HomeScreenController implements IController
 	private void logout()
 	{
 		StateManager.getInstance().setActiveUser(null);
-		StateManager.getInstance().setActiveScene("/photoalbum/view/Login.fxml", null, 400, 600);
+		StateManager.getInstance().setActiveScene("/photoalbum/view/Login.fxml", null, 257, 338);
 	}
 	
 	/**

@@ -51,6 +51,8 @@ public class LoginController implements IController
 	 */
 	public void start(Object args)
 	{
+		StateManager.getInstance().getPrimaryStage().setTitle("Photo Album - Login");
+		
 		btnLogin.setOnAction(e -> Login());
 		btnExit.setOnAction(e -> Exit());
 	}
@@ -60,7 +62,6 @@ public class LoginController implements IController
 	 */
 	private void Login()
 	{
-		
 		StateManager stateManager = StateManager.getInstance();
 		
 		if (UserLibrary.validateUser(stateManager.getUsers(), txtUsername.getText(), txtPassword.getText()))

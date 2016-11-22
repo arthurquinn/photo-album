@@ -100,6 +100,8 @@ public class HomeScreenController implements IController
 	 */
 	public void start(Object args)
 	{
+		StateManager.getInstance().getPrimaryStage().setTitle(String.format("Photo Album - User: %s", StateManager.getInstance().getActiveUser().getUsername()));
+		
 		populate();
 		
 		menuOpen.setOnAction(e -> open());

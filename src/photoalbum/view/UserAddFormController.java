@@ -64,23 +64,34 @@ public class UserAddFormController implements IController
 	{
 		StateManager stateManager = StateManager.getInstance();
 		
-		if (!UserLibrary.userExists(StateManager.getInstance().getUsers(), txtUsername.getText()))
+		if (!txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty())
 		{
-			User user = new User(txtUsername.getText(), txtPassword.getText());
-			stateManager.addUser(user);
-			stateManager.save();
-			close.run();
+			if (!UserLibrary.userExists(StateManager.getInstance().getUsers(), txtUsername.getText()))
+			{
+				User user = new User(txtUsername.getText(), txtPassword.getText());
+				stateManager.addUser(user);
+				stateManager.save();
+				close.run();
+			}
+			else
+			{
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(StateManager.getInstance().getPrimaryStage());
+	            alert.setTitle("Error");
+	            alert.setHeaderText("Name must be unique (Case insensitive).");
+	            alert.setContentText("Another user with this name already exists.");
+	            alert.showAndWait();
+			}	
 		}
 		else
 		{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(StateManager.getInstance().getPrimaryStage());
             alert.setTitle("Error");
-            alert.setHeaderText("Name must be unique (Case insensitive).");
-            alert.setContentText("Another user with this name already exists.");
+            alert.setHeaderText("Missing username or password");
+            alert.setContentText("Username and password fields cannot be empty.");
             alert.showAndWait();
 		}
-		
 	}
 	
 	/**

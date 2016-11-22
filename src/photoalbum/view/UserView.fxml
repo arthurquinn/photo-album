@@ -19,8 +19,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem fx:id="mnuCreate" mnemonicParsing="false" text="Create User" />
-                  <MenuItem fx:id="mnuDelete" mnemonicParsing="false" text="Delete User" />
+              <MenuItem fx:id="mnuCreate" mnemonicParsing="false" text="Create New User" />
+                  <MenuItem fx:id="mnuDelete" mnemonicParsing="false" text="Delete Selected User" />
             </items>
           </Menu>
         </menus>

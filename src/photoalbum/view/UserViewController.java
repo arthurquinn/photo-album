@@ -2,6 +2,8 @@ package photoalbum.view;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import photoalbum.models.User;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 
@@ -71,6 +74,8 @@ public class UserViewController implements IController
 	 */
 	public void start(Object args)
 	{
+		StateManager.getInstance().getPrimaryStage().setTitle("Photo Album - Administrator Tools");
+		
 		populate();
 		
 		mnuCreate.setOnAction(e -> createUser());
@@ -115,20 +120,42 @@ public class UserViewController implements IController
 	{
 		User user = userGrid.getSelectionModel().getSelectedItem();
 		
-		if (user.getUsername().equals("admin"))
+		if (user != null)
 		{
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(StateManager.getInstance().getPrimaryStage());
-            alert.setTitle("Error");
-            alert.setHeaderText("Cannot delete admin account.");
-            alert.showAndWait();
+			if (user.getUsername().equals("admin"))
+			{
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(StateManager.getInstance().getPrimaryStage());
+	            alert.setTitle("Error");
+	            alert.setHeaderText("Administrator account cannot be deleted");
+	            alert.setContentText("Select a different user.");
+	            alert.showAndWait();
+			}
+			else
+			{
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.initOwner(StateManager.getInstance().getPrimaryStage());
+	            alert.setTitle("Confirmation");
+	            alert.setHeaderText("Are you sure you want to delete this user?");
+	            alert.setContentText(String.format("User: %s\nAll albums this user owns will be lost.", user.getUsername()));
+	            Optional<ButtonType> response = alert.showAndWait();
+				
+	            if (response.isPresent() && response.get() == ButtonType.OK)
+	            {
+					StateManager.getInstance().removeUser(user);
+					StateManager.getInstance().save();
+					populate();	
+	            }
+			}
 		}
 		else
 		{
-			StateManager.getInstance().removeUser(user);
-			StateManager.getInstance().save();
-			
-			populate();
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No user selected");
+    		alert.setContentText("Select a user to delete.");
+    		alert.showAndWait();
 		}
 	}
 	

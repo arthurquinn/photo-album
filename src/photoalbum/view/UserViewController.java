@@ -25,13 +25,39 @@ import javafx.scene.control.TableColumn;
  */
 public class UserViewController implements IController
 {
+	/**
+	 * A visible list containing all the users
+	 */
 	@FXML private TableView<User> userGrid;
+	
+	/**
+	 * A column containing the username of a user
+	 */
 	@FXML private TableColumn<User, String> colUsername;
+	
+	/**
+	 * A column containing the password of a user
+	 */
 	@FXML private TableColumn<User, String> colPassword;
 	
+	/**
+	 * A button for creating a user object
+	 */
 	@FXML private Button btnCreate;
+	
+	/**
+	 * A button for deleting a user object
+	 */
 	@FXML private Button btnDelete;
+	
+	/**
+	 * A button for logging out of the UserViewController
+	 */
 	@FXML private Button btnLogout;
+	
+	/**
+	 * Button for safe quitting the application
+	 */
 	@FXML private Button btnExit;
 	
 	/**

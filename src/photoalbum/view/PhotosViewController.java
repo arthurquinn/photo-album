@@ -8,10 +8,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,25 +27,81 @@ import photoalbum.models.Photo;
 import photoalbum.lib.AlbumLibrary;
 import photoalbum.lib.PhotoLibrary;
 
-
+/**
+ * Controls the actions for photos
+ * @author Stephen Eisen
+ * @author Arthur Quintanilla
+ */
 public class PhotosViewController implements IController
 {
+	/**
+	 * Menu for logging out
+	 */
 	@FXML private MenuItem mnuLogout;
+	
+	/**
+	 * Menu for safe quitting the application
+	 */
 	@FXML private MenuItem mnuExit;
+	
+	/**
+	 * Menu for adding a photo
+	 */
 	@FXML private MenuItem mnuAdd;
+	
+	/**
+	 * Menu for deleting a photo
+	 */
 	@FXML private MenuItem mnuRemove;
+	
+	/**
+	 * Menu for copying a photo
+	 */
 	@FXML private MenuItem mnuCopy;
+	
+	/**
+	 * Menu for moving a photo
+	 */
 	@FXML private MenuItem mnuMove;
+	
+	/**
+	 * Menu for adding a caption to a photo
+	 */
 	@FXML private MenuItem mnuCaption;
+	
+	/**
+	 * Menu for adding tags to the photo
+	 */
 	@FXML private MenuItem mnuTags;
+	
+	/**
+	 * Menu for displaying the photo
+	 */
 	@FXML private MenuItem mnuDisplay;
+	
+	/**
+	 * Menu for entering slideshow mode for current album
+	 */
 	@FXML private MenuItem mnuSlideshow;
 	
+	/**
+	 * Labal stateing the currently selected album
+	 */
 	@FXML private Label lblAlbumTitle;
+	
+	/**
+	 * Panal that holds the photo thumbnails
+	 */
 	@FXML private FlowPane imgPane;
 	
+	/**
+	 * The currently selected image
+	 */
 	private ImageThumbnailController selectedImage;
 	
+	/**
+	 * Sets up the Photo view controller
+	 */
 	public void start(Object args)
 	{
 		mnuLogout.setOnAction(e -> logout());
@@ -60,6 +118,9 @@ public class PhotosViewController implements IController
 		populate();
 	}
 	
+	/**
+	 * Updates the photo view FlowPane
+	 */
 	private void populate()
 	{
 		Album album = StateManager.getInstance().getActiveAlbum();
@@ -76,6 +137,10 @@ public class PhotosViewController implements IController
 		}
 	}
 	
+	/**
+	 * Gets the currently selected image and puts a highlight around it
+	 * @param source The photo to be highlighted
+	 */
 	private void highlightImage(Object source)
 	{
 		ImageThumbnailController imgControl = (ImageThumbnailController)source;
@@ -89,17 +154,26 @@ public class PhotosViewController implements IController
 		selectedImage = imgControl;
 	}
 	
+	/**
+	 * Returns the user to the login screen
+	 */
 	private void logout()
 	{
 		StateManager.getInstance().setActiveUser(null);
 		StateManager.getInstance().setActiveScene("/photoalbum/view/Login.fxml", null, 400, 600);
 	}
 	
+	/**
+	 * Safe quits the application
+	 */
 	private void exit()
 	{
 		StateManager.getInstance().saveAndExit();
 	}
 	
+	/**
+	 * Adds a photo to the album
+	 */
 	private void add()
 	{
 		FileChooser photoChooser = new FileChooser();
@@ -123,6 +197,9 @@ public class PhotosViewController implements IController
 		}
 	}
 	
+	/**
+	 * Removes a photo from the album
+	 */
 	private void remove()
 	{
 		if (selectedImage == null)
@@ -138,11 +215,18 @@ public class PhotosViewController implements IController
 		}
 	}
 	
+	/**
+	 * Copies a photo from one album to another album
+	 */
 	private void copy()
 	{
 		if (selectedImage == null)
 		{
-			// TODO: Add error message here
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No album selected");
+    		alert.setContentText("Select an album to copy the photo into.");
 		}
 		else
 		{			
@@ -160,11 +244,18 @@ public class PhotosViewController implements IController
 		}
 	}
 	
+	/**
+	 * Moves a photo from one album to another album
+	 */
 	private void move()
 	{
 		if (selectedImage == null)
 		{
-			// TODO: Add error message here
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No album selected");
+    		alert.setContentText("Select an album to move the photo into.");
 		}
 		else
 		{			
@@ -182,11 +273,18 @@ public class PhotosViewController implements IController
 		}
 	}
 	
+	/**
+	 * Add or edit the caption of a photo
+	 */
 	private void caption()
 	{
 		if (selectedImage == null)
 		{
-			// TODO: Add error message
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No photo selected");
+    		alert.setContentText("Select a photo to caption.");
 		}
 		else
 		{
@@ -205,6 +303,9 @@ public class PhotosViewController implements IController
 		}
 	}
 	
+	/**
+	 * Manage the tags associated with a photo
+	 */
 	private void tags()
 	{
 		if (selectedImage != null)
@@ -223,10 +324,17 @@ public class PhotosViewController implements IController
 		}
 		else
 		{
-			// TODO: Error here
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No photo selected");
+    		alert.setContentText("Select a photo to manage its tags.");
 		}
 	}
 	
+	/**
+	 * Displays a selected photo
+	 */
 	private void display()
 	{
 		if (selectedImage != null)
@@ -245,10 +353,17 @@ public class PhotosViewController implements IController
 		}
 		else
 		{
-			// TODO: Error here
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No photo selected");
+    		alert.setContentText("Select a photo to display.");
 		}
 	}
 	
+	/**
+	 * Displays a slideshow containing all photos within the currently selected album
+	 */
 	private void slideshow()
 	{
 		if (StateManager.getInstance().getActiveAlbum().getPhotoList().size() > 0)
@@ -262,7 +377,11 @@ public class PhotosViewController implements IController
 		}
 		else
 		{
-			// TODO: Error here
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No photos in album");
+    		alert.setContentText("Cannot display a slideshow for empty album.");
 		}
 	}
 }

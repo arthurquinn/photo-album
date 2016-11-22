@@ -20,9 +20,24 @@ import photoalbum.lib.UserLibrary;
 
 public class UserAddFormController implements IController
 {
+	/**
+	 * Confirmation for creating a user object
+	 */
 	@FXML private Button btnAdd;
+	
+	/**
+	 * Cancels creating a user object
+	 */
 	@FXML private Button btnCancel;
+	
+	/**
+	 * The desired name for the new user object
+	 */
 	@FXML private TextField txtUsername;
+	
+	/**
+	 * The desired password for the new user object
+	 */
 	@FXML private PasswordField txtPassword;
 	
 	/**

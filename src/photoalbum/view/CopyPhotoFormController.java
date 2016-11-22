@@ -5,6 +5,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import photoalbum.app.StateManager;
@@ -12,18 +14,46 @@ import photoalbum.lib.AlbumLibrary;
 import photoalbum.models.Album;
 import photoalbum.models.Photo;
 
+/**
+ * Form for copying a photo from one album to another album
+ * @author Stephen Eisen
+ * @author Arthur Quintanilla
+ */
 public class CopyPhotoFormController implements IController 
 {
+	/**
+	 * Confirmation button for copying a photo
+	 */
 	@FXML private Button btnCopy;
+	
+	/**
+	 * Cancel button for copying a photo
+	 */
 	@FXML private Button btnCancel;
+	
+	/**
+	 * List of albums for a user
+	 */
 	@FXML private ListView<Album> lstAlbums;
 	
+	/**
+	 * Viewable list of albums for a user
+	 */
 	private ObservableList<Album> albumList;
 	
+	/**
+	 * The desired photo to be copied
+	 */
 	private Photo photoToCopy;
 	
+	/**
+	 * Function for closing the form
+	 */
 	private Runnable closeForm;
 	
+	/**
+	 * Sets up the Copy photo form controller
+	 */
 	public void start(Object args)
 	{
 		Object[] argsArray = (Object[])args;
@@ -37,6 +67,9 @@ public class CopyPhotoFormController implements IController
 		populate();
 	}
 	
+	/**
+	 * Updates the album list
+	 */
 	private void populate()
 	{
 		albumList = FXCollections.observableArrayList();
@@ -46,6 +79,9 @@ public class CopyPhotoFormController implements IController
 		lstAlbums.setItems(albumList);
 	}
 	
+	/**
+	 * Copies a photo from one album to another album
+	 */
 	private void copy()
 	{
 		Album album = lstAlbums.getSelectionModel().getSelectedItem();
@@ -57,7 +93,11 @@ public class CopyPhotoFormController implements IController
 		}
 		else
 		{
-			// TODO: add error
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No album selected");
+    		alert.setContentText("Select an album to copy this photo.");
 		}
 	}
 }

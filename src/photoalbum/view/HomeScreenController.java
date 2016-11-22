@@ -108,7 +108,7 @@ public class HomeScreenController implements IController
 			Stage stage = new Stage(StageStyle.DECORATED);
 			stage.setTitle("Search for Photos");
 			
-			Runnable r = () -> stage.close();
+			Runnable r = () -> { stage.close(); populate(); };
 			
 			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/SearchForm.fxml", (Object)r);
 		}

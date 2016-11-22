@@ -2,15 +2,20 @@ package photoalbum.view;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.FlowPane;
 import photoalbum.app.StateManager;
+import photoalbum.lib.PhotoLibrary;
 import photoalbum.lib.UserLibrary;
 import photoalbum.models.Album;
 import photoalbum.models.Photo;
@@ -23,11 +28,9 @@ public class SearchFormController implements IController
 	@FXML private DatePicker dateTo;
 	@FXML private TextField txtType;
 	@FXML private TextField txtValue;
-	@FXML private ListView<Photo> lstPhotos;
+	@FXML private FlowPane imgPane;
 	@FXML private Button btnCreate;
 	@FXML private Button btnClose;
-	
-	private ObservableList<Photo> searchResults;
 	
 	private Runnable closeForm;
 	
@@ -43,10 +46,13 @@ public class SearchFormController implements IController
 	
 	private void populate(List<Photo> photoList)
 	{
-		searchResults = FXCollections.observableArrayList();
-		searchResults.addAll(photoList);
-		
-		lstPhotos.setItems(searchResults);
+		imgPane.getChildren().clear();
+		for (Photo photo : photoList)
+		{
+			ImageThumbnailController imgControl = new ImageThumbnailController();
+			imgControl.setPhoto(photo);
+			imgPane.getChildren().add(imgControl);
+		}
 	}
 	
 	private void searchDate()
@@ -69,6 +75,32 @@ public class SearchFormController implements IController
 	
 	private void create()
 	{
-		
+		if (imgPane.getChildren().size() > 0)
+		{
+			TextInputDialog dialog = new TextInputDialog();
+	        dialog.initOwner(StateManager.getInstance().getPrimaryStage()); 
+	        dialog.setTitle("Create Album From Search Results");
+	        dialog.setHeaderText("Enter a name for the new album.");
+	        dialog.setContentText("Name: ");
+
+	        Optional<String> result = dialog.showAndWait();
+	        if (result.isPresent()) 
+	        { 
+	        	Album album = new Album(result.get());
+	        	for (Node n : imgPane.getChildren())
+	        	{
+	        		Photo p = ((ImageThumbnailController)n).getPhoto();
+	        		Photo newPhoto = PhotoLibrary.copyPhoto(p);
+	        		album.addPhoto(newPhoto);
+	        	}
+	        	StateManager.getInstance().getActiveUser().addAlbum(album);
+	        	StateManager.getInstance().save();
+	        	closeForm.run();
+	        }
+		}
+		else
+		{
+			// TODO: Error here
+		}
 	}
 }

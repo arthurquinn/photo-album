@@ -108,5 +108,8 @@ public class Photo implements Serializable
 		return this.tagList;
 	}
 	
-
+	public void setTagList(List<Tag> tagList)
+	{
+		this.tagList = tagList;
+	}
 }

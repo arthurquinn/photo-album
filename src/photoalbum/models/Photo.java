@@ -47,6 +47,7 @@ public class Photo implements Serializable
 		this.imgPath = imgPath;
 		this.tagList = new ArrayList<Tag>();
 		this.dateTaken = dateTaken;
+		this.dateTaken.set(Calendar.MILLISECOND, 0);
 	}
 	
 	/**

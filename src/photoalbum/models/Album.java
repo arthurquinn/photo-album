@@ -2,9 +2,11 @@ package photoalbum.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
+import photoalbum.lib.AlbumLibrary;
 
 /**
  * Describes an Album class that is used to hold user photos
@@ -43,6 +45,10 @@ public class Album implements Serializable
 	 * The name of this album object
 	 */
 	private String name;
+	
+	private Calendar oldestPhotoDate;
+	
+	private Calendar newestPhotoDate;
 
 	
 	/**
@@ -104,7 +110,8 @@ public class Album implements Serializable
 	 */
 	public SimpleStringProperty getOldestPhotoProp()
 	{
-		oldestPhotoProp = new SimpleStringProperty("0");
+		setOldestPhotoDate();
+		oldestPhotoProp = new SimpleStringProperty(oldestPhotoDate != null ? oldestPhotoDate.getTime().toString() : "Album is empty");
 		return oldestPhotoProp;
 	}
 	
@@ -114,7 +121,12 @@ public class Album implements Serializable
 	 */
 	public SimpleStringProperty getRangePhotosProp()
 	{
-		rangePhotosProp = new SimpleStringProperty("0");
+		setOldestPhotoDate();
+		setNewestPhotoDate();
+		
+		rangePhotosProp = new SimpleStringProperty(newestPhotoDate != null && oldestPhotoDate != null ? 
+													String.format("%s to %s", oldestPhotoDate.getTime().toString(), newestPhotoDate.getTime().toString()) :
+													"Album is empty");
 		return rangePhotosProp;
 	}
 	
@@ -136,5 +148,45 @@ public class Album implements Serializable
 	{
 		this.name = name;
 		this.nameProp = new SimpleStringProperty(name);
+	}
+	
+	private void setOldestPhotoDate()
+	{
+		if (photoList.size() < 1)
+		{
+			oldestPhotoDate = null;
+		}
+		else
+		{
+			Calendar oldestDate = photoList.get(0).getDateTaken();
+			for (Photo photo : photoList)
+			{
+				if (photo.getDateTaken().before(oldestDate))
+				{
+					oldestDate = photo.getDateTaken();
+				}
+			}
+			oldestPhotoDate = oldestDate;
+		}
+	}
+	
+	private void setNewestPhotoDate()
+	{
+		if (photoList.size() < 1)
+		{
+			newestPhotoDate = null;
+		}
+		else
+		{
+			Calendar newestDate = photoList.get(0).getDateTaken();
+			for (Photo photo : photoList)
+			{
+				if (photo.getDateTaken().after(newestDate))
+				{
+					newestDate = photo.getDateTaken();
+				}
+			}
+			newestPhotoDate = newestDate;
+		}
 	}
 }

@@ -32,7 +32,15 @@ public class StateManager implements Serializable
 	 * The serial UID associated with the StateManager object
 	 */
 	private static final long serialVersionUID = 6760982129067815490L;
+	
+	/**
+	 * The directory in which to store the .dat file
+	 */
 	private transient static final String storeDir = "dat";
+	
+	/**
+	 * The name in which to save the .dat file as
+	 */
 	private transient static final String storeFile = "state.dat";
 	
 	
@@ -56,6 +64,9 @@ public class StateManager implements Serializable
 	 */
 	private transient Stage primaryStage;
 	
+	/**
+	 * The current active album
+	 */
 	private transient Album activeAlbum;
 	
 	/**
@@ -184,6 +195,12 @@ public class StateManager implements Serializable
 		}
 	}
 	
+	/**
+	 * Creates a popup window for input and output
+	 * @param stage The new stage to be called
+	 * @param fxmlPath The file path of the new stage
+	 * @param args Any parameter to be passed to the controller
+	 */
 	public void createPopupWindow(Stage stage, String fxmlPath, Object args)
 	{
 		try
@@ -256,11 +273,19 @@ public class StateManager implements Serializable
 		System.exit(0);
 	}
 	
+	/**
+	 * Sets the currently active album
+	 * @param album The new desired album
+	 */
 	public void setActiveAlbum(Album album)
 	{
 		this.activeAlbum = album;
 	}
 	
+	/**
+	 * The currently active album
+	 * @return The album that is currently active
+	 */
 	public Album getActiveAlbum()
 	{
 		return this.activeAlbum;

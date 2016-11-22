@@ -22,6 +22,8 @@ public class Photo implements Serializable
 	 */
 	private String caption;
 	
+	private String imgPath;
+	
 	/**
 	 * A list of tags associated with this Photo
 	 */
@@ -30,9 +32,15 @@ public class Photo implements Serializable
 	/**
 	 * Constructs a Photo object
 	 */
-	public Photo()
+	public Photo(String imgPath)
 	{
+		this.imgPath = imgPath;
 		this.tagList = new ArrayList<Tag>();
+	}
+	
+	public String getImgPath()
+	{
+		return this.imgPath;
 	}
 	
 	/**

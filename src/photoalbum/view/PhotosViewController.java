@@ -5,9 +5,11 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -57,8 +59,26 @@ public class PhotosViewController implements IController
 		
 		for (Photo photo : album.getPhotoList())
 		{
+			ImageThumbnailController imgControl = new ImageThumbnailController();
+			imgControl.setImage(photo.getImgPath());
+			imgControl.setCaption(photo.getCaption());
 			
+			imgControl.setOnMouseClicked(e -> highlightImage(e.getSource()));
+			
+			imgPane.getChildren().add(imgControl);
 		}
+	}
+	
+	private void highlightImage(Object source)
+	{
+		ImageThumbnailController imgControl = (ImageThumbnailController)source;
+		
+		for (Node n : imgPane.getChildren())
+		{
+			((ImageThumbnailController)n).setHighlight(false);
+		}
+		
+		imgControl.setHighlight(true);
 	}
 	
 	private void logout()
@@ -81,7 +101,14 @@ public class PhotosViewController implements IController
 		
 		if (imgFile != null && imgFile.exists())
 		{
+			ImageThumbnailController imgControl = new ImageThumbnailController();
+			imgControl.setImage(imgFile.toURI().toString());
 			
+			imgPane.getChildren().add(imgControl);
+			
+			
+			StateManager.getInstance().getActiveAlbum().addPhoto(new Photo(imgFile.toURI().toString()));
+			StateManager.getInstance().save();
 		}
 	}
 	

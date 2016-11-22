@@ -4,6 +4,7 @@ import photoalbum.models.*;
 import photoalbum.view.IController;
 import photoalbum.view.LoginController;
 import photoalbum.view.PhotosViewController;
+import photoalbum.view.UserAddFormController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.layout.AnchorPane;
@@ -176,6 +177,27 @@ public class StateManager implements Serializable
 			Scene scene = new Scene(root, x, y);
 			StateManager.getInstance().getPrimaryStage().setScene(scene);
 			StateManager.getInstance().getPrimaryStage().show();	
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void createPopupWindow(Stage stage, String fxmlPath, Object args)
+	{
+		try
+		{
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+
+			stage.setScene(new Scene((AnchorPane)loader.load()));
+			stage.setResizable(false);
+			
+			IController controller = loader.getController();
+			controller.start(args);
+			
+			stage.showAndWait();
+			
 		}
 		catch (IOException e)
 		{

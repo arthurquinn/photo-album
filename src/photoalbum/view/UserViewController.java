@@ -72,27 +72,11 @@ public class UserViewController implements IController
 	 */
 	private void createUser()
 	{
-		try
-		{
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/photoalbum/view/UserAddForm.fxml"));
-			Stage stage = new Stage(StageStyle.DECORATED);
-
-			
-			stage.setScene(new Scene((AnchorPane)loader.load()));
-			stage.setResizable(false);
-			stage.setTitle("Add User");
-			
-			UserAddFormController controller = loader.getController();
-			Runnable r = () -> { stage.close(); populate(); };
-			controller.start((Object)r);
-			
-			stage.showAndWait();
-			
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		Stage stage = new Stage(StageStyle.DECORATED);
+		stage.setTitle("Add User");
+		Runnable r = () -> { stage.close(); populate(); };
+		
+		StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/UserAddForm.fxml", (Object)r);
 		
 	}
 	

@@ -17,6 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import photoalbum.app.StateManager;
 import photoalbum.models.Album;
 import photoalbum.models.Photo;
@@ -176,7 +178,17 @@ public class PhotosViewController implements IController
 	
 	private void display()
 	{
+		Stage stage = new Stage(StageStyle.DECORATED);
+		stage.setTitle("Photo Display");
 		
+		Runnable r = () -> stage.close();
+		Photo p = selectedImage.getPhoto();
+		
+		Object[] args = new Object[2];
+		args[0] = r;
+		args[1] = p;
+		
+		StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/DisplayPhotoView.fxml", args);
 	}
 	
 	private void slideshow()

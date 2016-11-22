@@ -23,7 +23,7 @@ import javafx.scene.control.TableColumn;
  * @author Stephen Eisen
  * @author Arthur Quintanilla
  */
-public class UserViewController
+public class UserViewController implements IController
 {
 	@FXML private TableView<User> userGrid;
 	@FXML private TableColumn<User, String> colUsername;
@@ -42,7 +42,7 @@ public class UserViewController
 	/**
 	 * Sets up the User View scene
 	 */
-	public void start()
+	public void start(Object args)
 	{
 		populate();
 		
@@ -83,7 +83,8 @@ public class UserViewController
 			stage.setTitle("Add User");
 			
 			UserAddFormController controller = loader.getController();
-			controller.start(() -> { stage.close(); populate(); });
+			Runnable r = () -> { stage.close(); populate(); };
+			controller.start((Object)r);
 			
 			stage.showAndWait();
 			
@@ -125,23 +126,8 @@ public class UserViewController
 	 */
 	private void logout()
 	{
-		try
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/photoalbum/view/Login.fxml"));
-			AnchorPane root = (AnchorPane)loader.load();
-			
-			LoginController controller = loader.getController();
-			controller.start();
-			
-			Scene scene = new Scene(root,400,600);
-			StateManager.getInstance().getPrimaryStage().setScene(scene);
-			StateManager.getInstance().getPrimaryStage().show();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		StateManager.getInstance().setActiveUser(null);
+		StateManager.getInstance().setActiveScene("/photoalbum/view/Login.fxml", null, 400, 600);
 	}
 	
 	/**

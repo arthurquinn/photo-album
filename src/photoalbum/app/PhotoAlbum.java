@@ -42,16 +42,7 @@ public class PhotoAlbum extends Application
             
             StateManager.getInstance().setPrimaryStage(primaryStage);
             
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/photoalbum/view/Login.fxml"));
-            AnchorPane root = (AnchorPane)loader.load();
-
-            LoginController controller = loader.getController();
-            controller.start();
-
-            Scene scene = new Scene(root,400,600);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            StateManager.getInstance().setActiveScene("/photoalbum/view/Login.fxml", null, 400, 600);
 
         } catch(Exception e) 
         {

@@ -1,7 +1,9 @@
 package photoalbum.app;
 
 import photoalbum.models.*;
+import photoalbum.view.IController;
 import photoalbum.view.LoginController;
+import photoalbum.view.PhotosViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.layout.AnchorPane;
@@ -52,6 +54,8 @@ public class StateManager implements Serializable
 	 * The current active primary stage
 	 */
 	private transient Stage primaryStage;
+	
+	private transient Album activeAlbum;
 	
 	/**
 	 * A list of the users for the Photo Album
@@ -158,9 +162,25 @@ public class StateManager implements Serializable
 	 * Sets the currently active scene
 	 * @param scene The new desired scene to be made active
 	 */
-	public void setActiveScene(Scene scene)
+	public void setActiveScene(String fxmlPath, Object args, int x, int y)
 	{
-		this.activeScene = scene;
+		try
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(fxmlPath));
+			AnchorPane root = (AnchorPane)loader.load();
+			
+			IController controller = loader.getController();
+			controller.start(args);
+			
+			Scene scene = new Scene(root, x, y);
+			StateManager.getInstance().getPrimaryStage().setScene(scene);
+			StateManager.getInstance().getPrimaryStage().show();	
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -190,49 +210,6 @@ public class StateManager implements Serializable
 		userList.remove(user);
 	}
 	
-	public User getUser(String name)
-	{
-		for (User user : userList)
-		{
-			if (user.getUsername().equals(name))
-				return user;
-		}
-		return null;
-	}
-	
-	/**
-	 * Checks whether the fields entered match a username and its password
-	 * @param username The username to login with
-	 * @param password The password associated with the username
-	 * @return boolean if the username exists and matches the entered password - True else false
-	 */
-	public boolean validateUser(String username, String password)
-	{
-		for (User user : userList)
-		{
-			if (username.equals(user.getUsername()) && password.equals(user.getPassword()))
-				return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Checks whether the username entered exists in the userList
-	 * @param username The username to check
-	 * @return boolean true if the name already exists else false
-	 */
-	public boolean userExists(String username)
-	{
-		for (User user : userList)
-		{
-			if (user.getUsername().equalsIgnoreCase(username))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	/**
 	 * Saves the current state of the application
 	 */
@@ -255,5 +232,15 @@ public class StateManager implements Serializable
 	{
 		save();
 		System.exit(0);
+	}
+	
+	public void setActiveAlbum(Album album)
+	{
+		this.activeAlbum = album;
+	}
+	
+	public Album getActiveAlbum()
+	{
+		return this.activeAlbum;
 	}
 }

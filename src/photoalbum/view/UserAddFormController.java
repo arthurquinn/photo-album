@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 
 import photoalbum.app.StateManager;
 import photoalbum.models.User;
+import photoalbum.lib.UserLibrary;
 
 /**
  * Controls the actions of the User add screen
@@ -17,7 +18,7 @@ import photoalbum.models.User;
  * @author Arthur Quintanilla
  */
 
-public class UserAddFormController
+public class UserAddFormController implements IController
 {
 	@FXML private Button btnAdd;
 	@FXML private Button btnCancel;
@@ -33,12 +34,11 @@ public class UserAddFormController
 	 * Sets up the User Add scene
 	 * @param close function for closing the form
 	 */
-	public void start(Runnable close)
-	{
+	public void start(Object close)
+	{	
+		this.close = (Runnable)close;
 		btnAdd.setOnAction(e -> AddUser());
 		btnCancel.setOnAction(e -> Cancel());
-		
-		this.close = close;
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class UserAddFormController
 	{
 		StateManager stateManager = StateManager.getInstance();
 		
-		if (!stateManager.userExists(txtUsername.getText()))
+		if (!UserLibrary.userExists(StateManager.getInstance().getUsers(), txtUsername.getText()))
 		{
 			User user = new User(txtUsername.getText(), txtPassword.getText());
 			stateManager.addUser(user);

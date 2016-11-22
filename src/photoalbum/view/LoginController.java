@@ -5,8 +5,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+
 import photoalbum.app.StateManager;
 import photoalbum.models.*;
+import photoalbum.lib.UserLibrary;
 
 import java.io.Serializable;
 import java.io.FileInputStream;
@@ -22,7 +24,7 @@ import java.util.*;
  * @author Arthur Quintanilla
  */
 
-public class LoginController
+public class LoginController implements IController
 {
 	@FXML private TextField txtUsername;
 	@FXML private PasswordField txtPassword;
@@ -32,7 +34,7 @@ public class LoginController
 	/**
 	 * Sets up the Login Scene
 	 */
-	public void start()
+	public void start(Object args)
 	{
 		btnLogin.setOnAction(e -> Login());
 		btnExit.setOnAction(e -> Exit());
@@ -51,46 +53,17 @@ public class LoginController
 			System.out.println(user);
 		}
 		
-		if (stateManager.validateUser(txtUsername.getText(), txtPassword.getText()))
+		if (UserLibrary.validateUser(stateManager.getUsers(), txtUsername.getText(), txtPassword.getText()))
 		{
 			if (txtUsername.getText().equals("admin"))
 			{
-				try 
-				{
-					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(getClass().getResource("/photoalbum/view/UserView.fxml"));
-					AnchorPane root = (AnchorPane)loader.load();
-					
-					UserViewController controller = loader.getController();
-					controller.start();
-					
-					Scene scene = new Scene(root,600,600);
-					stateManager.getPrimaryStage().setScene(scene);
-					stateManager.getPrimaryStage().show();
-				} catch(Exception e) 
-				{
-					e.printStackTrace();
-				}
+				stateManager.setActiveUser(UserLibrary.getUser(stateManager.getUsers(), "admin"));
+				stateManager.setActiveScene("/photoalbum/view/UserView.fxml", null, 600, 600);
 			}
 			else
 			{
-				try 
-				{
-					stateManager.setActiveUser(stateManager.getUser(txtUsername.getText()));
-					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(getClass().getResource("/photoalbum/view/HomeScreen.fxml"));
-					AnchorPane root = (AnchorPane)loader.load();
-					
-					HomeScreenController controller = loader.getController();
-					controller.start();
-					
-					Scene scene = new Scene(root,800,600);
-					stateManager.getPrimaryStage().setScene(scene);
-					stateManager.getPrimaryStage().show();
-				} catch(Exception e) 
-				{
-					e.printStackTrace();
-				}	
+				stateManager.setActiveUser(UserLibrary.getUser(stateManager.getUsers(), txtUsername.getText()));
+				stateManager.setActiveScene("/photoalbum/view/HomeScreen.fxml", null, 800, 600);
 			}
 		}
 		else

@@ -26,7 +26,7 @@ import java.util.*;
  * @author Arthur Quintanilla
  */
 
-public class HomeScreenController
+public class HomeScreenController implements IController
 {
 	
 	@FXML private MenuItem menuOpen;
@@ -48,7 +48,7 @@ public class HomeScreenController
 	/**
 	 * Sets up the Home Scene
 	 */
-	public void start()
+	public void start(Object args)
 	{
 		populate();
 		
@@ -82,7 +82,13 @@ public class HomeScreenController
 	
 	private void open()
 	{
-		// new scene
+		Album selectedAlbum = albumGrid.getSelectionModel().getSelectedItem();
+		
+		if (selectedAlbum != null)
+		{
+			StateManager.getInstance().setActiveAlbum(selectedAlbum);
+			StateManager.getInstance().setActiveScene("/photoalbum/view/PhotosView.fxml", null, 800, 600);	
+		}
 	}
 	
 	private void search()
@@ -152,23 +158,8 @@ public class HomeScreenController
 	
 	private void logout()
 	{
-		try
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/photoalbum/view/Login.fxml"));
-			AnchorPane root = (AnchorPane)loader.load();
-			
-			LoginController controller = loader.getController();
-			controller.start();
-			
-			Scene scene = new Scene(root,400,600);
-			StateManager.getInstance().getPrimaryStage().setScene(scene);
-			StateManager.getInstance().getPrimaryStage().show();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		StateManager.getInstance().setActiveUser(null);
+		StateManager.getInstance().setActiveScene("/photoalbum/view/Login.fxml", null, 400, 600);
 	}
 	
 	private void exit()

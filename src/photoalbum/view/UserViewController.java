@@ -16,6 +16,7 @@ import photoalbum.models.User;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 
 /**
@@ -43,22 +44,22 @@ public class UserViewController implements IController
 	/**
 	 * A button for creating a user object
 	 */
-	@FXML private Button btnCreate;
+	@FXML private MenuItem mnuCreate;
 	
 	/**
 	 * A button for deleting a user object
 	 */
-	@FXML private Button btnDelete;
+	@FXML private MenuItem mnuDelete;
 	
 	/**
 	 * A button for logging out of the UserViewController
 	 */
-	@FXML private Button btnLogout;
+	@FXML private MenuItem mnuLogout;
 	
 	/**
 	 * Button for safe quitting the application
 	 */
-	@FXML private Button btnExit;
+	@FXML private MenuItem mnuExit;
 	
 	/**
 	 * A list containing all of the users
@@ -72,10 +73,10 @@ public class UserViewController implements IController
 	{
 		populate();
 		
-		btnCreate.setOnAction(e -> createUser());
-		btnDelete.setOnAction(e -> deleteUser());
-		btnLogout.setOnAction(e -> logout());
-		btnExit.setOnAction(e -> exit());
+		mnuCreate.setOnAction(e -> createUser());
+		mnuDelete.setOnAction(e -> deleteUser());
+		mnuLogout.setOnAction(e -> logout());
+		mnuExit.setOnAction(e -> exit());
 	}
 	
 	/**

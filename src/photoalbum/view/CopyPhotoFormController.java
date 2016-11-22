@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import photoalbum.app.StateManager;
 import photoalbum.lib.AlbumLibrary;
+import photoalbum.lib.PhotoLibrary;
 import photoalbum.models.Album;
 import photoalbum.models.Photo;
 
@@ -88,7 +89,7 @@ public class CopyPhotoFormController implements IController
 		
 		if (album != null)
 		{
-			AlbumLibrary.addPhotoToAlbum(album, photoToCopy);
+			AlbumLibrary.addPhotoToAlbum(album, PhotoLibrary.copyPhoto(photoToCopy));
 			closeForm.run();
 		}
 		else

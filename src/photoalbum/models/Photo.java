@@ -1,8 +1,10 @@
 package photoalbum.models;
 
 import java.util.List;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *  Describes a Photo class that is used to hold user photos
@@ -33,12 +35,18 @@ public class Photo implements Serializable
 	private List<Tag> tagList;
 	
 	/**
+	 * The simulated date taken of the photo (date taken is the last modification date of the file)
+	 */
+	private Calendar dateTaken;
+	
+	/**
 	 * Constructs a Photo object
 	 */
-	public Photo(String imgPath)
+	public Photo(String imgPath, Calendar dateTaken)
 	{
 		this.imgPath = imgPath;
 		this.tagList = new ArrayList<Tag>();
+		this.dateTaken = dateTaken;
 	}
 	
 	/**
@@ -57,6 +65,11 @@ public class Photo implements Serializable
 	public String getCaption()
 	{
 		return this.caption;
+	}
+	
+	public Calendar getDateTaken()
+	{
+		return this.dateTaken;
 	}
 	
 	/**

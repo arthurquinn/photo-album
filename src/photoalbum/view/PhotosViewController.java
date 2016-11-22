@@ -2,6 +2,8 @@ package photoalbum.view;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Optional;
 
 import javafx.fxml.FXML;
@@ -183,7 +185,10 @@ public class PhotosViewController implements IController
 		
 		if (imgFile != null && imgFile.exists())
 		{
-			Photo photo = new Photo(imgFile.toURI().toString());
+			Calendar dateTaken = Calendar.getInstance();
+			dateTaken.setTimeInMillis(imgFile.lastModified());
+			
+			Photo photo = new Photo(imgFile.toURI().toString(), dateTaken);
 			
 			ImageThumbnailController imgControl = new ImageThumbnailController();
 			imgControl.setPhoto(photo);

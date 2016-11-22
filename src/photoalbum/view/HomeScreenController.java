@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import photoalbum.app.StateManager;
 import photoalbum.models.*;
 import photoalbum.lib.AlbumLibrary;
@@ -93,7 +95,23 @@ public class HomeScreenController implements IController
 	
 	private void search()
 	{
-		
+		if (StateManager.getInstance().getActiveUser().getAlbumList().isEmpty())
+		{
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No albums for this user");
+    		alert.setContentText("Cannot search for photos when there are no albums");
+		}
+		else
+		{			
+			Stage stage = new Stage(StageStyle.DECORATED);
+			stage.setTitle("Search for Photos");
+			
+			Runnable r = () -> stage.close();
+			
+			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/SearchForm.fxml", (Object)r);
+		}
 	}
 	
 	private void create()

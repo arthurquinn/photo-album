@@ -69,6 +69,8 @@ public class CopyPhotoFormController implements IController
 		photoToCopy = (Photo)argsArray[1];
 		stage = (Stage)argsArray[2];
 		
+		stage.setResizable(false);
+		
 		btnCopy.setOnAction(e -> copy());
 		btnCancel.setOnAction(e -> closeForm.run());
 		

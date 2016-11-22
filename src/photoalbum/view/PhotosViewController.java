@@ -16,6 +16,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -229,10 +230,20 @@ public class PhotosViewController implements IController
 		}
 		else
 		{
-			Photo p = selectedImage.getPhoto();
-			PhotoLibrary.removePhoto(StateManager.getInstance().getActiveAlbum().getPhotoList(), p);
-			imgPane.getChildren().clear();
-			populate();
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Confirmation");
+    		alert.setHeaderText("Are you sure you want to delete this photo?");
+    		alert.setContentText("This photo and all of its metadata will be deleted.");
+    		Optional<ButtonType> response = alert.showAndWait();
+    		
+    		if (response.isPresent() && response.get() == ButtonType.OK)
+    		{
+    			Photo p = selectedImage.getPhoto();
+    			PhotoLibrary.removePhoto(StateManager.getInstance().getActiveAlbum().getPhotoList(), p);
+    			imgPane.getChildren().clear();
+    			populate();
+    		}
 		}
 	}
 	

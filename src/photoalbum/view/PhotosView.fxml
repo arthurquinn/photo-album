@@ -22,19 +22,19 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Photos">
                <items>
-                  <MenuItem fx:id="mnuAdd" mnemonicParsing="false" text="Add" />
-                  <MenuItem fx:id="mnuRemove" mnemonicParsing="false" text="Remove" />
+                  <MenuItem fx:id="mnuAdd" mnemonicParsing="false" text="Add New Photo" />
+                  <MenuItem fx:id="mnuRemove" mnemonicParsing="false" text="Remove Selected Photo" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="mnuCopy" mnemonicParsing="false" text="Copy" />
-                  <MenuItem fx:id="mnuMove" mnemonicParsing="false" text="Move" />
+                  <MenuItem fx:id="mnuCopy" mnemonicParsing="false" text="Copy Selected Photo" />
+                  <MenuItem fx:id="mnuMove" mnemonicParsing="false" text="Move Selected Photo" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="mnuCaption" mnemonicParsing="false" text="Caption" />
-                  <MenuItem fx:id="mnuTags" mnemonicParsing="false" text="Tags" />
+                  <MenuItem fx:id="mnuCaption" mnemonicParsing="false" text="Add/Edit Caption for Selected Photo" />
+                  <MenuItem fx:id="mnuTags" mnemonicParsing="false" text="Manage Tags for Selected Photo" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="View">
                <items>
-                  <MenuItem fx:id="mnuDisplay" mnemonicParsing="false" text="Display" />
+                  <MenuItem fx:id="mnuDisplay" mnemonicParsing="false" text="Display Selected Photo" />
                   <MenuItem fx:id="mnuSlideshow" mnemonicParsing="false" text="Slideshow" />
                </items>
             </Menu>

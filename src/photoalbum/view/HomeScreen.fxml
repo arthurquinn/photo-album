@@ -24,8 +24,8 @@
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem fx:id="menuCreate" mnemonicParsing="false" text="Create Album" />
-                  <MenuItem fx:id="menuRename" mnemonicParsing="false" text="Rename Album" />
-                  <MenuItem fx:id="menuDelete" mnemonicParsing="false" text="Delete Album" />
+                  <MenuItem fx:id="menuRename" mnemonicParsing="false" text="Rename Selected Album" />
+                  <MenuItem fx:id="menuDelete" mnemonicParsing="false" text="Delete Selected Album" />
             </items>
           </Menu>
         </menus>

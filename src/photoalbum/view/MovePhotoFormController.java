@@ -65,6 +65,7 @@ public class MovePhotoFormController implements IController
 		closeForm = (Runnable)argsArray[0];
 		photoToMove = (Photo)argsArray[1];
 		stage = (Stage)argsArray[2];
+		stage.setResizable(false);
 		
 		btnMove.setOnAction(e -> move());
 		btnCancel.setOnAction(e -> closeForm.run());

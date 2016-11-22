@@ -66,6 +66,8 @@ public class ManageTagsController implements IController
 		activePhoto = (Photo)argsArray[1];
 		stage = (Stage)argsArray[2];
 		
+		stage.setResizable(false);
+		
 		btnAdd.setOnAction(e -> add());
 		btnDelete.setOnAction(e -> delete());
 		btnClose.setOnAction(e -> r.run());

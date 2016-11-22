@@ -62,6 +62,8 @@ public class UserAddFormController implements IController
 		this.close = (Runnable)argsArray[0];
 		this.stage = (Stage)argsArray[1];
 		
+		this.stage.setResizable(false);
+		
 		btnAdd.setOnAction(e -> addUser());
 		btnCancel.setOnAction(e -> Cancel());
 	}

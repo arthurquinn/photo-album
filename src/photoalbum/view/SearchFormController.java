@@ -8,11 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
 import photoalbum.app.StateManager;
 import photoalbum.lib.PhotoLibrary;
@@ -63,14 +65,52 @@ public class SearchFormController implements IController
 	    Calendar to = Calendar.getInstance();
 	    to.set(dateTo.getValue().getYear(), dateTo.getValue().getMonthValue(), dateTo.getValue().getDayOfMonth());
 	    
-	    List<Photo> results = UserLibrary.searchByDateRange(StateManager.getInstance().getActiveUser().getAlbumList(), from, to);
+	    List<Photo> results = UserLibrary.searchByDateRange(from, to);
 
-	    populate(results);
+	    if (results.size() > 0)
+	    {
+	    	populate(results);
+	    }
+	    else
+	    {
+			Alert alert = new Alert(AlertType.WARNING);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Warning");
+    		alert.setHeaderText("No results found");
+    		alert.setContentText("No photos match the constraints of this query.");
+    		alert.showAndWait();
+	    }
 	}
 	
 	private void searchTag()
 	{
-		
+		if (!txtType.getText().isEmpty() && !txtValue.getText().isEmpty())
+		{
+			List<Photo> results = UserLibrary.searchByTagValuePair(txtType.getText(), txtValue.getText());
+			
+			if (results.size() > 0)
+			{
+				populate(results);
+			}
+			else
+			{
+				Alert alert = new Alert(AlertType.WARNING);
+	    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+	    		alert.setTitle("Warning");
+	    		alert.setHeaderText("No results found");
+	    		alert.setContentText("No photos match the constraints of this query.");
+	    		alert.showAndWait();
+			}
+		}
+		else
+		{
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("Missing tag type or value");
+    		alert.setContentText("Enter a tag type and value to search for.");
+    		alert.showAndWait();
+		}
 	}
 	
 	private void create()
@@ -100,7 +140,12 @@ public class SearchFormController implements IController
 		}
 		else
 		{
-			// TODO: Error here
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No search results");
+    		alert.setContentText("Run a successful search query before attempting to create an album.");
+    		alert.showAndWait();
 		}
 	}
 }

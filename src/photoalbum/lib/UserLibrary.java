@@ -3,6 +3,7 @@ package photoalbum.lib;
 import photoalbum.app.StateManager;
 import photoalbum.models.Album;
 import photoalbum.models.Photo;
+import photoalbum.models.Tag;
 import photoalbum.models.User;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class UserLibrary
 		return false;
 	}
 	
-	public static List<Photo> searchByDateRange(List<Album> albumList, Calendar from, Calendar to)
+	public static List<Photo> searchByDateRange(Calendar from, Calendar to)
 	{
 		List<Photo> results = new ArrayList<Photo>();
 		for (Album album : StateManager.getInstance().getActiveUser().getAlbumList())
@@ -57,6 +58,26 @@ public class UserLibrary
 				if (photo.getDateTaken().before(to) && photo.getDateTaken().after(from))
 				{
 					results.add(photo);
+				}
+			}
+		}
+		return results;
+	}
+	
+	public static List<Photo> searchByTagValuePair(String tagType, String tagValue)
+	{
+		List<Photo> results = new ArrayList<Photo>();
+		for (Album album : StateManager.getInstance().getActiveUser().getAlbumList())
+		{
+			for (Photo photo : album.getPhotoList())
+			{
+				for (Tag tag : photo.getTagList())
+				{
+					if (tag.getType().equals(tagType) && tag.getValue().equals(tagValue))
+					{
+						results.add(photo);
+						break; // don't add photo more than once
+					}
 				}
 			}
 		}

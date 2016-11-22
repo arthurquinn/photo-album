@@ -37,6 +37,11 @@ import photoalbum.lib.PhotoLibrary;
 public class PhotosViewController implements IController
 {
 	/**
+	 * Menu for closing album
+	 */
+	@FXML private MenuItem mnuCloseAlbum;
+	
+	/**
 	 * Menu for logging out
 	 */
 	@FXML private MenuItem mnuLogout;
@@ -106,6 +111,7 @@ public class PhotosViewController implements IController
 	 */
 	public void start(Object args)
 	{
+		mnuCloseAlbum.setOnAction(e -> closeAlbum());
 		mnuLogout.setOnAction(e -> logout());
 		mnuExit.setOnAction(e -> exit());
 		mnuAdd.setOnAction(e -> add());
@@ -154,6 +160,14 @@ public class PhotosViewController implements IController
 		
 		imgControl.setHighlight(true);
 		selectedImage = imgControl;
+	}
+	
+	/**
+	 * Closes the album and reopens the home screen
+	 */
+	private void closeAlbum()
+	{
+		StateManager.getInstance().setActiveScene("/photoalbum/view/HomeScreen.fxml", null, 800, 600);
 	}
 	
 	/**
@@ -232,6 +246,7 @@ public class PhotosViewController implements IController
     		alert.setTitle("Error");
     		alert.setHeaderText("No album selected");
     		alert.setContentText("Select an album to copy the photo into.");
+    		alert.showAndWait();
 		}
 		else
 		{			

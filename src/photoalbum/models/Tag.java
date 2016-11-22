@@ -41,4 +41,10 @@ public class Tag implements Serializable
 	{
 		return this.tagValue;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return String.format("%s: %s", this.tagType, this.tagValue);
+	}
 }

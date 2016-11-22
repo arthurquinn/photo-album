@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoalbum.view.PhotosViewController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoalbum.view.PhotosViewController">
    <children>
-      <MenuBar layoutY="2.0" prefHeight="14.0" prefWidth="525.0">
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="817.0">
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
@@ -40,14 +40,14 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Label fx:id="lblAlbumTitle" layoutX="14.0" layoutY="42.0" text="Label">
+      <Label fx:id="lblAlbumTitle" layoutX="24.0" layoutY="52.0" text="Label">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ScrollPane layoutY="68.0" prefHeight="457.0" prefWidth="807.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+      <ScrollPane layoutY="78.0" prefHeight="522.0" prefWidth="817.0">
          <content>
-            <FlowPane fx:id="imgPane" prefHeight="99.0" prefWidth="806.0" />
+            <FlowPane fx:id="imgPane" prefHeight="508.0" prefWidth="816.0" />
          </content>
       </ScrollPane>
    </children>

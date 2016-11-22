@@ -69,5 +69,16 @@ public class Photo implements Serializable
 	{
 		tagList.add(tag);
 	}
+	
+	public void removeTag(Tag tag)
+	{
+		tagList.remove(tag);
+	}
+	
+	public List<Tag> getTagList()
+	{
+		return this.tagList;
+	}
+	
 
 }

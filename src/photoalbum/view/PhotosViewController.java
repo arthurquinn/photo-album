@@ -173,31 +173,62 @@ public class PhotosViewController implements IController
 	
 	private void tags()
 	{
-		
+		if (selectedImage != null)
+		{
+			Stage stage = new Stage(StageStyle.DECORATED);
+			stage.setTitle("Manage Tags");
+			
+			Runnable r = () -> stage.close();
+			Photo p = selectedImage.getPhoto();
+			
+			Object[] args = new Object[2];
+			args[0] = r;
+			args[1] = p;
+			
+			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/ManageTags.fxml", args);
+		}
+		else
+		{
+			// TODO: Error here
+		}
 	}
 	
 	private void display()
 	{
-		Stage stage = new Stage(StageStyle.DECORATED);
-		stage.setTitle("Photo Display");
-		
-		Runnable r = () -> stage.close();
-		Photo p = selectedImage.getPhoto();
-		
-		Object[] args = new Object[2];
-		args[0] = r;
-		args[1] = p;
-		
-		StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/DisplayPhotoView.fxml", args);
+		if (selectedImage != null)
+		{
+			Stage stage = new Stage(StageStyle.DECORATED);
+			stage.setTitle("Photo Display");
+			
+			Runnable r = () -> stage.close();
+			Photo p = selectedImage.getPhoto();
+			
+			Object[] args = new Object[2];
+			args[0] = r;
+			args[1] = p;
+			
+			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/DisplayPhotoView.fxml", args);
+		}
+		else
+		{
+			// TODO: Error here
+		}
 	}
 	
 	private void slideshow()
 	{
-		Stage stage = new Stage(StageStyle.DECORATED);
-		stage.setTitle(String.format("Slideshow - Album: %s", StateManager.getInstance().getActiveAlbum().getName()));
-		
-		Runnable r = () -> stage.close();
-		
-		StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/SlideshowView.fxml", (Object)r);
+		if (StateManager.getInstance().getActiveAlbum().getPhotoList().size() > 0)
+		{
+			Stage stage = new Stage(StageStyle.DECORATED);
+			stage.setTitle(String.format("Slideshow - Album: %s", StateManager.getInstance().getActiveAlbum().getName()));
+			
+			Runnable r = () -> stage.close();
+			
+			StateManager.getInstance().createPopupWindow(stage, "/photoalbum/view/SlideshowView.fxml", (Object)r);
+		}
+		else
+		{
+			// TODO: Error here
+		}
 	}
 }

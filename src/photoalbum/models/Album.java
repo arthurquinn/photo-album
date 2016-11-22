@@ -18,11 +18,25 @@ public class Album implements Serializable
 	 * The serial UID associated with album objects
 	 */
 	private static final long serialVersionUID = 986593781696016892L;
-
 	
+	/**
+	 * SimpleStringProperty of the name variable
+	 */
 	private transient SimpleStringProperty nameProp;
+	
+	/**
+	 * SimpleStringProperty of the numPhotos variable
+	 */
 	private transient SimpleStringProperty numPhotosProp;
+	
+	/**
+	 * SimpleStringProperty of the oldestPhoto variable
+	 */
 	private transient SimpleStringProperty oldestPhotoProp;
+	
+	/**
+	 * SimpleStringProperty of the rangePhotos variable
+	 */
 	private transient SimpleStringProperty rangePhotosProp;
 	
 	/**
@@ -75,8 +89,8 @@ public class Album implements Serializable
 	}
 	
 	/**
-	 * Gets the number of photos in this album object
-	 * @return The number of photos as a simple String
+	 * SimpleStringProperty of the name variable
+	 * @return The name of the album
 	 */
 	public SimpleStringProperty getNamePhotoProp()
 	{
@@ -84,24 +98,40 @@ public class Album implements Serializable
 		return nameProp;
 	}
 	
+	/**
+	 * SimpleStringProperty of the oldestPhoto variable
+	 * @return The number of photos
+	 */
 	public SimpleStringProperty getOldestPhotoProp()
 	{
 		oldestPhotoProp = new SimpleStringProperty("0");
 		return oldestPhotoProp;
 	}
 	
+	/**
+	 * SimpleStringProperty of the rangePhotos variable
+	 * @return The range of photos
+	 */
 	public SimpleStringProperty getRangePhotosProp()
 	{
 		rangePhotosProp = new SimpleStringProperty("0");
 		return rangePhotosProp;
 	}
 	
+	/**
+	 * SimpleStringProperty of the numPhotos variable
+	 * @return The number of photos
+	 */
 	public SimpleStringProperty getNumPhotosProp()
 	{
 		numPhotosProp = new SimpleStringProperty("" + photoList.size());
 		return numPhotosProp;
 	}
 	
+	/**
+	 * Sets the name of the album
+	 * @param name The new desired name for the album
+	 */
 	public void setName(String name)
 	{
 		this.name = name;

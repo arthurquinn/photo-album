@@ -22,6 +22,9 @@ public class Photo implements Serializable
 	 */
 	private String caption;
 	
+	/**
+	 * The file path that this photo is located
+	 */
 	private String imgPath;
 	
 	/**
@@ -38,6 +41,10 @@ public class Photo implements Serializable
 		this.tagList = new ArrayList<Tag>();
 	}
 	
+	/**
+	 * Gets the current image file path for this Photo object
+	 * @return The file path for this photo
+	 */
 	public String getImgPath()
 	{
 		return this.imgPath;
@@ -70,11 +77,19 @@ public class Photo implements Serializable
 		tagList.add(tag);
 	}
 	
+	/**
+	 * Removes a string tag from the tagList for this Photo
+	 * @param tag The String tag associated with this Photo object
+	 */
 	public void removeTag(Tag tag)
 	{
 		tagList.remove(tag);
 	}
 	
+	/**
+	 * Gets the list of tags associated with this Photo object
+	 * @return The tagList associated with this photo object
+	 */
 	public List<Tag> getTagList()
 	{
 		return this.tagList;

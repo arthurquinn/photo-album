@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 public class User implements Serializable
 {	
+	/**
+	 * The serial UID associated with album objects
+	 */
 	private static final long serialVersionUID = 6306381479040511532L;
 
 	/**
@@ -27,8 +30,14 @@ public class User implements Serializable
 	 */
 	private transient SimpleStringProperty passwordProp;
 	
+	/**
+	 * The username associated with this User object
+	 */
 	private String username;
 	
+	/**
+	 * The password associated with this User object
+	 */
 	private String password;
 	
 	/**
@@ -68,11 +77,19 @@ public class User implements Serializable
 		return this.password;
 	}
 	
+	/**
+	 * Gets the name of this user object
+	 * @return The name of this user object
+	 */
 	public SimpleStringProperty getUsernameProp()
 	{
 		return this.usernameProp;
 	}
 	
+	/**
+	 * Gets the password associated with this user object
+	 * @return The password for this User
+	 */
 	public SimpleStringProperty getPasswordProp()
 	{
 		return this.passwordProp;
@@ -107,12 +124,19 @@ public class User implements Serializable
 		albumList.add(album);
 	}
 	
+	/**
+	 * Sets the prop variables for this object
+	 */
 	public void setProps()
 	{
 		this.usernameProp = new SimpleStringProperty(username);
 		this.passwordProp = new SimpleStringProperty(password);
 	}
 	
+	/**
+	 * Gets the current list of albums associated with this user
+	 * @return The current albumList for this object
+	 */
 	public List<Album> getAlbumList()
 	{
 		return this.albumList;

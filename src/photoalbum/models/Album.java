@@ -201,4 +201,13 @@ public class Album implements Serializable
 			newestPhotoDate = newestDate;
 		}
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString()
+	{
+		return this.name;
+	}
 }

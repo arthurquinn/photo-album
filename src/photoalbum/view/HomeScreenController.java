@@ -211,6 +211,15 @@ public class HomeScreenController implements IController
 	        	populate();
 	        }
 		}
+		else
+		{
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No album selected");
+    		alert.setContentText("Select an album to rename.");
+    		alert.showAndWait();
+		}
 	}
 	
 	/**
@@ -235,6 +244,15 @@ public class HomeScreenController implements IController
     			albumList.clear();
     			populate();
     		}
+		}
+		else
+		{
+			Alert alert = new Alert(AlertType.ERROR);
+    		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+    		alert.setTitle("Error");
+    		alert.setHeaderText("No album selected");
+    		alert.setContentText("Select an album to delete.");
+    		alert.showAndWait();
 		}
 	}
 	

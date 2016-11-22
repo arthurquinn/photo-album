@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import photoalbum.models.Photo;
+import photoalbum.models.Tag;
 
 /**
  * Displays a photo for the user
@@ -49,7 +50,19 @@ public class DisplayPhotoViewController implements IController
 		Photo p = (Photo)argsArray[1];
 		
 		imgView.setImage(new Image(p.getImgPath()));
-		lblCaption.setText(p.getCaption());
+		lblCaption.setText(String.format("Caption: %s", p.getCaption()));
+		lblCaptureDateTime.setText(String.format("Capture Date/Time: ", p.getDateTaken().getTime().toString()));
+		setTagText(p);
 		btnClose.setOnAction(e -> r.run());
+	}
+	
+	private void setTagText(Photo p)
+	{
+		String tagString = "Tags: ";
+		for (Tag tag : p.getTagList())
+		{
+			tagString += String.format("[Type: %s, Value: %s], ", tag.getType(), tag.getValue());
+		}
+		lblTags.setText(tagString);
 	}
 }

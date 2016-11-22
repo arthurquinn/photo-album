@@ -6,6 +6,7 @@ import java.util.List;
 import photoalbum.app.StateManager;
 import photoalbum.models.Album;
 import photoalbum.models.Photo;
+import photoalbum.models.User;
 
 /**
  * Static Logic methods for computations involving Albums
@@ -64,5 +65,21 @@ public class AlbumLibrary
 	{
 		a.addPhoto(p);
 		StateManager.getInstance().save();
+	}
+	
+	/**
+	 * Determines if an album with this name already exists for a specific user
+	 * @return true if the album name exists for this user, false otherwise
+	 */
+	public static boolean albumExistsForUser(User u, String albumName)
+	{
+		for (Album album : u.getAlbumList())
+		{
+			if (albumName.equals(album.getName()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

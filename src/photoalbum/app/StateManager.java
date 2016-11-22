@@ -105,7 +105,6 @@ public class StateManager implements Serializable
             }
             catch (IOException | ClassNotFoundException e)
             {
-                e.printStackTrace(System.out);
                 return null;
             }
         }

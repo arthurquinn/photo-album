@@ -63,11 +63,6 @@ public class LoginController implements IController
 		
 		StateManager stateManager = StateManager.getInstance();
 		
-		for (User user : stateManager.getUsers())
-		{
-			System.out.println(user);
-		}
-		
 		if (UserLibrary.validateUser(stateManager.getUsers(), txtUsername.getText(), txtPassword.getText()))
 		{
 			if (txtUsername.getText().equals("admin"))

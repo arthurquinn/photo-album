@@ -124,9 +124,6 @@ public class HomeScreenController implements IController
 		colNumPhotos.setCellValueFactory(cellData -> cellData.getValue().getNumPhotosProp());
 		colOldest.setCellValueFactory(cellData -> cellData.getValue().getOldestPhotoProp());
 		colRange.setCellValueFactory(cellData -> cellData.getValue().getRangePhotosProp());
-		
-		System.out.println(albumList.size());
-		System.out.println(StateManager.getInstance().getActiveUser().getUsername());
 		albumGrid.setItems(albumList);
 	}
 	

@@ -102,5 +102,9 @@ public class Album implements Serializable
 		return numPhotosProp;
 	}
 	
-
+	public void setName(String name)
+	{
+		this.name = name;
+		this.nameProp = new SimpleStringProperty(name);
+	}
 }

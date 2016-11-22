@@ -92,11 +92,6 @@ public class PhotosViewController implements IController
 	@FXML private MenuItem mnuSlideshow;
 	
 	/**
-	 * Labal stateing the currently selected album
-	 */
-	@FXML private Label lblAlbumTitle;
-	
-	/**
 	 * Panal that holds the photo thumbnails
 	 */
 	@FXML private FlowPane imgPane;
@@ -111,6 +106,10 @@ public class PhotosViewController implements IController
 	 */
 	public void start(Object args)
 	{
+		StateManager.getInstance().getPrimaryStage().setTitle(String.format("Photo Library - User: %s - Album: %s", 
+				StateManager.getInstance().getActiveUser().getUsername(), 
+				StateManager.getInstance().getActiveAlbum().getName()));
+		
 		mnuCloseAlbum.setOnAction(e -> closeAlbum());
 		mnuLogout.setOnAction(e -> logout());
 		mnuExit.setOnAction(e -> exit());
@@ -132,8 +131,6 @@ public class PhotosViewController implements IController
 	private void populate()
 	{
 		Album album = StateManager.getInstance().getActiveAlbum();
-		
-		lblAlbumTitle.setText(String.format("Active Album: %s", album.getName()));
 		
 		for (Photo photo : album.getPhotoList())
 		{

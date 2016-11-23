@@ -237,11 +237,22 @@ public class HomeScreenController implements IController
 
 	        Optional<String> result = dialog.showAndWait();
 	        if (result.isPresent() && !result.get().isEmpty()) 
-	        { 
-	        	List<Album> userAlbums = StateManager.getInstance().getActiveUser().getAlbumList();
-	        	AlbumLibrary.editName(userAlbums, selectedAlbum.getName(), result.get());
-	        	albumList.clear();
-	        	populate();
+	        {
+	        	if (!AlbumLibrary.editName(StateManager.getInstance().getActiveUser(), selectedAlbum.getName(), result.get()))
+	        	{
+	    			Alert alert = new Alert(AlertType.ERROR);
+	        		alert.initOwner(StateManager.getInstance().getPrimaryStage());
+	        		alert.setTitle("Error");
+	        		alert.setHeaderText("Album name already exists");
+	        		alert.setContentText(String.format("Another album belonging to user: %s already exists with this name.\nAlbum names must be unique per user.\nEnter a unique album name.",
+	        				StateManager.getInstance().getActiveUser().getUsername()));
+	        		alert.showAndWait();
+	        	}
+	        	else
+	        	{
+		        	albumList.clear();
+		        	populate();	
+	        	}
 	        }
 		}
 		else

@@ -22,12 +22,16 @@ public class AlbumLibrary
 	 * @param newName The new name for the selected album
 	 * @return True if the album existed and completed the edit successfully else false
 	 */
-	public static boolean editName(List<Album> albumList, String name, String newName)
+	public static boolean editName(User u, String name, String newName)
 	{
-		for (Album album : albumList)
+		for (Album album : u.getAlbumList())
 		{
 			if (album.getName().equals(name))
 			{
+				if (albumExistsForUser(u, newName))
+				{
+					return false;
+				}
 				album.setName(newName);
 				StateManager.getInstance().save();
 				return true;

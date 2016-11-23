@@ -7,6 +7,7 @@ import photoalbum.models.Tag;
 import photoalbum.models.User;
 
 import java.util.List;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -118,5 +119,213 @@ public class UserLibrary
 			}
 		}
 		return results;
+	}
+	
+	/**
+	 * Method for the sole purposes of initializing test users for project graders
+	 */
+	public static void initializeTestUsers()
+	{
+		Album testAlbum;
+		Tag testTag;
+		Photo testPhoto;
+		File testFile;
+		Calendar dateTaken;
+		
+		if (userExists(StateManager.getInstance().getUsers(), "arthur"))
+		{
+			User arthur = getUser(StateManager.getInstance().getUsers(), "arthur");
+			
+			if (arthur.getAlbumList().size() == 0)
+			{
+				// Test Album 1
+				testAlbum = new Album("TestAlbum1");
+				arthur.addAlbum(testAlbum);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Pikachu.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testPhoto.setCaption("A wild Pikachu appeared!");
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Squirtle.png");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testPhoto.setCaption("How do I join the Squirtle Squad?");
+				testAlbum.addPhoto(testPhoto);
+				
+				testFile = new File("samplePics/Koala.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.setCaption("Fuzzy.");
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Tulips.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Penguins.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testAlbum.addPhoto(testPhoto);
+				
+				// Test Album 2
+				testAlbum = new Album("TestAlbum2");
+				arthur.addAlbum(testAlbum);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Hydrangeas.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testAlbum.addPhoto(testPhoto);
+				
+				testFile = new File("samplePics/Jellyfish.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.setCaption("Jellyfishing is fun!");
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Pikachu.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testPhoto.setCaption("A lightning pokemon!");
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Kirbymander.png");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testPhoto.setCaption("This isn't Kirby!");
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Penguins.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testAlbum.addPhoto(testPhoto);
+			}
+			
+		}
+		if (userExists(StateManager.getInstance().getUsers(), "stephen"))
+		{
+			User stephen = getUser(StateManager.getInstance().getUsers(), "stephen");
+			
+			if (stephen.getAlbumList().size() == 0)
+			{
+				// Test Album 1
+				testAlbum = new Album("TestAlbum1");
+				stephen.addAlbum(testAlbum);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Chrysanthemum.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testAlbum.addPhoto(testPhoto);
+				
+				testFile = new File("samplePics/Pikachu.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Tulips.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Lighthouse.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testPhoto.setCaption("I can see my house from here!");
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Bulbasaur.png");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testPhoto.setCaption("Bulbasaur, I choose you!");
+				testAlbum.addPhoto(testPhoto);
+				
+				// Test Album 2
+				testAlbum = new Album("TestAlbum2");
+				stephen.addAlbum(testAlbum);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Hydrangeas.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testAlbum.addPhoto(testPhoto);
+				
+				testFile = new File("samplePics/Jellyfish.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Tulips.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testPhoto.setCaption("Flowers");
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Kirbymander.png");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testPhoto.setCaption("This isn't a Charmander!");
+				testAlbum.addPhoto(testPhoto);
+				
+				testTag = new Tag("test", "testingImage");
+				testFile = new File("samplePics/Pikachu.jpg");
+				dateTaken = Calendar.getInstance();
+				dateTaken.setTimeInMillis(testFile.lastModified());
+				testPhoto = new Photo(testFile.toURI().toString(), dateTaken);
+				testPhoto.addTag(testTag);
+				testPhoto.setCaption("Pikachu!");
+				testAlbum.addPhoto(testPhoto);
+			}
+		}
+		StateManager.getInstance().save();
 	}
 }

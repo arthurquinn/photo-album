@@ -1,5 +1,6 @@
 package photoalbum.app;
 
+import photoalbum.lib.UserLibrary;
 import photoalbum.models.*;
 import photoalbum.view.IController;
 import photoalbum.view.LoginController;
@@ -110,6 +111,12 @@ public class StateManager implements Serializable
 	 {
 	     instance = new StateManager();
 	     instance.addUser(new User("admin", "admin"));
+	     
+	     // these users are added for the graders to have test data
+	     instance.addUser(new User("arthur", "password"));
+	     instance.addUser(new User("stephen", "password"));
+	     UserLibrary.initializeTestUsers();
+	     
 	     instance.save();
 	 }
 	

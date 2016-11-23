@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import photoalbum.view.LoginController;
+import photoalbum.lib.UserLibrary;
 import photoalbum.models.*;
 
 /**
@@ -32,7 +33,7 @@ public class PhotoAlbum extends Application
             File file = new File("data/state.dat");
             if (file.exists() && !file.isDirectory())
             {
-            	//TODO: ???
+            	
             }
             else
             {

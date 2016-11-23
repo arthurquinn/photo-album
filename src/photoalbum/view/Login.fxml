@@ -18,5 +18,8 @@
       </Label>
       <Button fx:id="btnLogin" contentDisplay="CENTER" layoutX="14.0" layoutY="299.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Login" />
       <Button fx:id="btnExit" layoutX="130.0" layoutY="299.0" mnemonicParsing="false" prefWidth="114.0" text="Exit" />
+      <Label layoutX="26.0" layoutY="108.0" text="Admin Credentials: " />
+      <Label layoutX="64.0" layoutY="125.0" text="Username: admin" />
+      <Label layoutX="64.0" layoutY="142.0" text="Password: admin" />
    </children>
 </AnchorPane>

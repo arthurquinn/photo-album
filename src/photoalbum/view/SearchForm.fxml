@@ -22,7 +22,7 @@
       <Label layoutX="366.0" layoutY="98.0" text="Tag Value:" />
       <TextField fx:id="txtValue" layoutX="437.0" layoutY="94.0" prefHeight="25.0" prefWidth="220.0" promptText="Enter value here" />
       <Button fx:id="btnSearchTag" layoutX="680.0" layoutY="94.0" mnemonicParsing="false" text="Search" />
-      <Button fx:id="btnCreate" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" text="Create Album from Search Results" />
+      <Button fx:id="btnCreate" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" text="Create New Album from Search Results" />
       <Button fx:id="btnClose" layoutX="737.0" layoutY="553.0" mnemonicParsing="false" text="Close" />
       <ScrollPane layoutX="13.0" layoutY="127.0" prefHeight="423.0" prefWidth="774.0">
          <content>

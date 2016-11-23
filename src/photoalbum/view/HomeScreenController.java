@@ -169,7 +169,7 @@ public class HomeScreenController implements IController
 		else
 		{			
 			Stage stage = new Stage(StageStyle.DECORATED);
-			stage.setTitle("Search for Photos");
+			stage.setTitle(String.format("Photo Album - Search in Photos belonging to User: %s", StateManager.getInstance().getActiveUser().getUsername()));
 			
 			Object[] argsArray = new Object[2];
 			Runnable r = () -> { stage.close(); populate(); };

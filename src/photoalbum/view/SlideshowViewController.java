@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.layout.AnchorPane;
 import photoalbum.app.StateManager;
 import photoalbum.models.Photo;
 
@@ -21,6 +21,11 @@ import photoalbum.models.Photo;
 
 public class SlideshowViewController implements IController
 {
+	/**
+	 * Anchor pane to anchor the image view
+	 */
+	@FXML private AnchorPane imgAnchor;
+	
 	/**
 	 * Button for returning to the previous photo
 	 */
@@ -68,6 +73,9 @@ public class SlideshowViewController implements IController
 		
 		imgView.setImage(new Image(photoList.get(imgIndex).getImgPath()));
 		lblImageNum.setText(String.format("Image %d of %d", imgIndex + 1, photoList.size()));
+		
+		imgView.fitWidthProperty().bind(imgAnchor.widthProperty());
+		imgView.fitHeightProperty().bind(imgAnchor.heightProperty());
 		
 		btnClose.setOnAction(e -> r.run());
 		btnPrevious.setOnAction(e -> previous());

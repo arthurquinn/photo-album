@@ -264,7 +264,7 @@ public class PhotosViewController implements IController
 		else
 		{			
 			Stage stage = new Stage(StageStyle.DECORATED);
-			stage.setTitle("Copy Photo");
+			stage.setTitle("Copy Photo into another Album");
 			
 			Runnable r = () -> stage.close();
 			Photo p = selectedImage.getPhoto();
@@ -295,7 +295,7 @@ public class PhotosViewController implements IController
 		else
 		{			
 			Stage stage = new Stage(StageStyle.DECORATED);
-			stage.setTitle("Move Photo");
+			stage.setTitle("Move Photo into another Album");
 			
 			Runnable r = () -> { stage.close(); imgPane.getChildren().clear(); populate(); };
 			Photo p = selectedImage.getPhoto();

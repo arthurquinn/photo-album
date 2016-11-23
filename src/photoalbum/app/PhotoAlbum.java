@@ -29,7 +29,7 @@ public class PhotoAlbum extends Application
 	{
 		try 
         {
-            File file = new File("dat/state.dat");
+            File file = new File("data/state.dat");
             if (file.exists() && !file.isDirectory())
             {
             	//TODO: ???

@@ -31,18 +31,7 @@ public class StateManager implements Serializable
 	/**
 	 * The serial UID associated with the StateManager object
 	 */
-	private static final long serialVersionUID = 6760982129067815490L;
-	
-	/**
-	 * The directory in which to store the .dat file
-	 */
-	private transient static final String storeDir = "dat";
-	
-	/**
-	 * The name in which to save the .dat file as
-	 */
-	private transient static final String storeFile = "state.dat";
-	
+	private static final long serialVersionUID = 6760982129067815490L;	
 	
 	/**
 	 * The instance of StateManager associated with this application
@@ -93,7 +82,7 @@ public class StateManager implements Serializable
         {
             try
             {
-                ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(String.format("%s/%s", storeDir, storeFile)));
+                ObjectInputStream inStream = new ObjectInputStream(new FileInputStream("data/state.dat"));
                 instance = (StateManager)inStream.readObject();
                 
                 for (User user : instance.getUsers())
@@ -257,7 +246,7 @@ public class StateManager implements Serializable
 	{
 		ObjectOutputStream outStream;
         try {
-            outStream = new ObjectOutputStream(new FileOutputStream(String.format("%s/%s", storeDir, storeFile)));
+            outStream = new ObjectOutputStream(new FileOutputStream("data/state.dat"));
             outStream.writeObject(instance);
         } catch (IOException e) {
             e.printStackTrace();
